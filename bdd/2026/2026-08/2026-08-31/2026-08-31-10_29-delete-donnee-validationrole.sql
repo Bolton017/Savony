@@ -1,0 +1,1 @@
+DELETE FROM VALIDATION_ROLE WHERE MAPPING = 'faturefournisseur.DmdAchat';

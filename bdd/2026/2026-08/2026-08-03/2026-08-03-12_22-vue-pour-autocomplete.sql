@@ -1,0 +1,98 @@
+create or replace view FACTUREFOURNISSEURAUTOCOMPLETE as
+SELECT
+    f.ID,
+    CASE
+        WHEN f.IDFOURNISSEUR IS NULL
+            THEN f.IDFOURNISSEUR
+        ELSE f.IDFOURNISSEUR||'---'||fou.nom
+        END AS IDFOURNISSEUR ,
+    f.IDMODEPAIEMENT,
+    f.DATY,
+    f.DESIGNATION,
+    f.DATEECHEANCEPAIEMENT,
+    f.ETAT,
+    f.REFERENCE,
+    f.IDBC,
+    f.DEVISE,
+    f.TAUX,
+    f.IDMAGASIN,
+    f.IDDEVISE,
+    f.ESTPREVU,
+    f.DATYPREVU,
+    f.NUMERO,
+    f.TYPEACHAT,
+    f.IDTYPEFACTURE,
+    f.IDOBJET,
+    f.IDREF,
+    f.IDDMDACHAT,
+    f.REMISEMONTANT,
+    f.REMISE,
+    f.SERVICE,
+    f.DATYECHEANCE
+FROM FACTUREFOURNISSEUR f
+LEFT JOIN FOURNISSEUR fou ON fou.id = f.IDFOURNISSEUR;
+
+create or replace view FACTFOURNISSEURFILLEACOMPLETE as
+SELECT
+    f.ID,
+    f.IDFACTUREFOURNISSEUR,
+    CASE
+        WHEN f.IDPRODUIT IS NULL
+            THEN f.IDPRODUIT
+        ELSE f.IDPRODUIT||'---'||ai.libelle
+        END AS IDPRODUIT ,
+    f.PU,
+    f.REMISES,
+    f.IDBCDETAIL,
+    f.TVA,
+    f.DEVISE,
+    f.TAUXDECHANGE,
+    f.IDDEVISE,
+    f.DESIGNATION,
+    f.COMPTE,
+    f.MOIS,
+    f.ANNEE,
+    f.QTE,
+    f.MONTANTPERTEGAIN,
+    f.IDMAGASIN,
+    f.IDPREVISION,
+    f.REMISEMONTANT,
+    f.REMISE
+FROM FACTUREFOURNISSEURFILLE f
+LEFT JOIN AS_INGREDIENTS ai ON ai.id = f.IDPRODUIT;
+
+create or replace view AS_BL_FILLE_AUTOCOMPLETE as
+SELECT
+    ab.ID,
+    CASE
+        WHEN ab.PRODUIT IS NULL
+            THEN ab.PRODUIT
+        ELSE ab.PRODUIT||'---'||ai.libelle
+        END AS PRODUIT ,
+    ab.NUMBL,
+    ab.QUANTITE,
+    ab.IDDETAILSFACTUREFOURNISSEUR,
+    ab.UNITE,
+    ab.IDBC_FILLE,
+    ab.IDFACTUREFOURNISSEUR,
+    ab.PU,
+    ab.DESIGNATION
+FROM AS_BONDELIVRAISON_FILLE ab
+LEFT JOIN AS_INGREDIENTS ai ON ai.id = ab.PRODUIT;
+
+create or replace view AS_BONDELIVRAISON_AUTOCOMPLETE as
+SELECT
+    ab.ID,
+    ab.REMARQUE,
+    ab.IDBC,
+    ab.DATY,
+    ab.ETAT,
+    CASE
+        WHEN ab.IDFOURNISSEUR IS NULL
+            THEN ab.IDFOURNISSEUR
+        ELSE ab.IDFOURNISSEUR||'---'||fou.nom
+        END AS IDFOURNISSEUR ,
+    ab.MAGASIN,
+    ab.IDFACTUREFOURNISSEUR
+FROM AS_BONDELIVRAISON ab
+LEFT JOIN FOURNISSEUR fou ON fou.id = ab.IDFOURNISSEUR;

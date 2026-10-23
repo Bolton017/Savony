@@ -1,0 +1,1 @@
+update  MENUDYNAMIQUE set libelle='Composant' where id='MNDN00001';

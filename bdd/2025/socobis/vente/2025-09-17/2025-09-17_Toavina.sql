@@ -1,0 +1,1 @@
+alter table proforma add IDDEVISE varchar(20);

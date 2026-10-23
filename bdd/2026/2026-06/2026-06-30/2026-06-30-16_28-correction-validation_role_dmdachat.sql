@@ -1,0 +1,1 @@
+UPDATE VALIDATION_ROLE SET REFOBJECT = null, MAPPING = 'faturefournisseur.DmdAchat', NIVEAU = 1, ROLE = 'chef_dep', PERSONNE = '*', VALEURETAT = 2 WHERE ID = 'VDMDAC0005';

@@ -1,0 +1,3 @@
+INSERT INTO menudynamique (id, libelle, icone, href, rang, niveau, id_pere) VALUES ('MENDYN1773921067406940', 'Calcul des Besoins', 'code', '', 6, 2, 'MENUDYN00304001');
+INSERT INTO menudynamique (id, libelle, icone, href, rang, niveau, id_pere) VALUES ('MENDYN1773921086503791', 'Saisie', 'plus', 'module.jsp?but=calculBesoin/calculBesoin-saisie-multiple.jsp', 1, 3, 'MENDYN1773921067406940');
+INSERT INTO menudynamique (id, libelle, icone, href, rang, niveau, id_pere) VALUES ('MENDYN1773921106042453', 'Liste', 'view_liste', 'module.jsp?but=calculBesoin/calculBesoin-liste.jsp', 2, 3, 'MENDYN1773921067406940');

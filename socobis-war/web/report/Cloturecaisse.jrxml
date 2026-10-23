@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factureclient" pageWidth="193" pageHeight="500" columnWidth="173" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" isIgnorePagination="true" uuid="34691f34-6644-460b-abdb-9ba1e17282b1">
+	<property name="ireport.zoom" value="4.279675059165101"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="171"/>
+	<parameter name="LISTE_MODE_PAIEMENT" class="java.util.List"/>
+	<parameter name="magasin" class="java.lang.String"/>
+	<parameter name="logo" class="java.lang.String"/>
+	<parameter name="disponnibilite" class="java.lang.String"/>
+	<parameter name="daty" class="java.util.Date"/>
+	<parameter name="devise" class="java.lang.String"/>
+	<parameter name="totalgeneral" class="java.lang.Double"/>
+	<parameter name="listedetails" class="java.util.List"/>
+	<parameter name="detailsExiste" class="java.lang.Boolean"/>
+	<field name="idCaisseLib" class="java.lang.String"/>
+	<field name="montant" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="144" splitType="Stretch">
+			<image hAlign="Center">
+				<reportElement x="0" y="0" width="173" height="64" uuid="a75b6a24-944e-45a5-a43c-3730ac21af6e"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="110" width="73" height="12" uuid="03be3963-183a-4380-8631-34a383cb5d81"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<text><![CDATA[Tenue de compte :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="73" y="110" width="99" height="12" uuid="24eefbc6-31d0-4770-ba18-ec1c59940ce4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph rightIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{devise}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="76" width="173" height="15" uuid="b7f71cb3-a249-449f-a61e-8c1d940ed671"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ticket Z]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="54" y="98" width="118" height="12" uuid="8cd08f7d-e3f8-416f-b8f0-b85b23df6fa2"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+					<paragraph rightIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="98" width="54" height="12" forecolor="#000000" backcolor="#FFFFFF" uuid="7cd23db0-5a28-4e72-a703-dd0e08be70a6"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<text><![CDATA[Date :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="96" width="173" height="42" uuid="80c042e9-e95d-44d1-9f56-1a37ed3d3fb4"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="122" width="65" height="12" uuid="00e1388e-2409-4053-a05e-1687034b4f44"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<text><![CDATA[Point de vente : ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="66" y="122" width="107" height="12" uuid="2c74d2a7-0b12-4d5c-86fc-93fd375cbed7"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph rightIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{magasin}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-1" y="64" width="173" height="12" uuid="b4dc9f39-ba72-44cb-aaf5-898fd05d07c6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Clôture de caisse]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="15">
+			<staticText>
+				<reportElement x="0" y="0" width="173" height="15" uuid="78ca2121-4385-4a54-87f1-b4e35d8b1066">
+					<printWhenExpression><![CDATA[$P{detailsExiste}==true]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="2">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Regroupement règlements]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="173" height="15" uuid="2344d855-3860-4f82-8213-3949e9b26812">
+					<printWhenExpression><![CDATA[$P{detailsExiste}==false]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Aucun mouvement de caisse enregistré pour cette date.]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="12">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="116" height="12" uuid="08f406e5-4d28-456a-804f-3ee8670730c8">
+					<printWhenExpression><![CDATA[$P{detailsExiste}==true]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idCaisseLib}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="116" y="0" width="57" height="12" uuid="093943ef-06e4-486b-a1e3-8f1200bbca4c">
+					<printWhenExpression><![CDATA[$P{detailsExiste}==true]]></printWhenExpression>
+				</reportElement>
+				<box rightPadding="4">
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montant}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="30">
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="116" y="0" width="57" height="20" uuid="3abc0fa6-d9f4-4041-bdf7-f5c0cf920eca">
+					<printWhenExpression><![CDATA[$P{detailsExiste}==true]]></printWhenExpression>
+				</reportElement>
+				<box rightPadding="4"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="8" isBold="false"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalgeneral}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="0" width="115" height="20" uuid="d58e424d-3491-433b-9a38-bee843b64174">
+					<printWhenExpression><![CDATA[$P{detailsExiste}==true]]></printWhenExpression>
+				</reportElement>
+				<box rightPadding="4"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<text><![CDATA[Total général
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="116" y="0" width="57" height="30" uuid="b9347946-a19f-483c-8399-814e042d2c97">
+					<printWhenExpression><![CDATA[$P{detailsExiste}==true]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="116" height="30" uuid="2e34f56c-e308-466d-ba04-c712fa976f4e">
+					<printWhenExpression><![CDATA[$P{detailsExiste}==true]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="44" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="7" width="173" height="37" uuid="c0efa367-8c2f-477f-bca1-b422571d6c02">
+					<printWhenExpression><![CDATA[$P{detailsExiste}==true]]></printWhenExpression>
+				</reportElement>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(
+    (java.util.Collection)$P{listedetails}
+)]]></dataSourceExpression>
+				<subreportExpression><![CDATA["cloturesubreport.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="0" y="0" width="173" height="30" uuid="7c7f3de3-8edd-489f-8dce-a29243e7f06d">
+					<printWhenExpression><![CDATA[$P{detailsExiste}==true]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="0">
+					<topPen lineWidth="0.25"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

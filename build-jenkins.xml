@@ -1,0 +1,143 @@
+<project name="deploy-ejb-socobis" default="deploy" basedir="./build-file">
+    <property environment="env"/>
+    <property name="deploy.dir" value="../deployments"/>
+    <property name="socobis-warname" value="socobis.war"/>
+    <property name="socobis-jarname" value="socobis-ejb.jar"/>
+    <property name="socobis-earname" value="socobis.ear"/>
+    <property name="srcejb-dir" value="./socobis-ejb/src/"/>
+    <property name="srcwar-dir" value="./socobis-war/src/java"/>
+    
+    <property name="build-socobis-war_war" value="${basedir}/socobis_war" />
+    <property name="build-socobis-ejb_jar" value="${basedir}/socobis_jar" />
+    <property name="build-socobis-lib" value="${basedir}/lib" />
+    
+    <property name="buildEar.dir" value="${basedir}/ear"/>
+    <property name="webcontent.dir" value="../socobis-war/web"/>
+    
+    <property name="srcproperties.dir" value="../socobis-ejb/src/java/resources"/>
+
+
+    <path id="classpath">
+        <fileset dir="${basedir}\lib">
+            <include name="**/*.jar" />
+        </fileset>
+    </path>
+	
+	
+
+	
+    <target name="clean" >
+        <echo> 
+            ---- Compilation socobis ----------------
+        </echo>
+        <echo>JDK ${ant.java.version}  ${ant.version}  </echo>
+        <echo> clean </echo>
+        
+        <delete file="${build-socobis-ejb_jar}" />
+        <delete file="${build-socobis-war_war}" />
+        <delete file="${build-socobis-lib}" />
+        <delete file="${basedir}/${socobis-earname}" />
+        <delete file="${buildEar.dir}/${socobis-earname}" />
+		
+        <echo> clean done </echo>
+    </target>
+	
+    <tstamp>
+        <format property="dateDuJour" pattern="dd/MM/yyyy hh:mm aa" />
+    </tstamp>
+	
+    <target name="init" depends="clean">
+        <echo> initialisation ${dateDuJour} </echo>
+        
+        <mkdir dir="${build-socobis-war_war}"/>
+        <mkdir dir="${build-socobis-war_war}/WEB-INF"/>
+        <mkdir dir="${build-socobis-war_war}/WEB-INF/lib"/>
+        <mkdir dir="${build-socobis-war_war}/WEB-INF/classes"/>
+        <mkdir dir="${build-socobis-war_war}/META-INF"/>
+        <mkdir dir="${build-socobis-war_war}/WEB-INF/classes/META-INF"/>
+        
+        <mkdir dir="${build-socobis-ejb_jar}"/>
+		
+		
+        <echo file="${webcontent.dir}/dateBuild.txt" append="false" message="${dateDuJour}" />
+        
+        <copy todir="${build-socobis-war_war}/">
+            <fileset dir="${webcontent.dir}" excludes="META-INF/**"/>
+        </copy>
+        <copy todir="${build-socobis-war_war}/META-INF">
+            <fileset dir="${webcontent.dir}/WEB-INF/META-INF" />
+        </copy>
+        <copy todir="${build-socobis-war_war}/WEB-INF/lib/">
+            <fileset dir="${basedir}\lib" />
+        </copy>
+
+        <copy file="../socobis-ejb/src/java/project.properties" tofile="${build-socobis-ejb_jar}/project.properties" />
+		<copy file="../socobis-ejb/src/java/apj.properties" tofile="${build-socobis-ejb_jar}/apj.properties" />
+		<copy file="../socobis-ejb/src/java/resources/text.properties" tofile="${build-socobis-ejb_jar}/java/resources/text.properties" />
+		<copy file="../socobis-ejb/src/java/resources/text_zh.properties" tofile="${build-socobis-ejb_jar}/java/resources/text_zh.properties" />
+        <echo>  initialisation done </echo>
+        <copy todir="${build-socobis-war_war}/WEB-INF">
+            <fileset dir="./../socobis-war/web/WEB-INF" includes="**/*.xml" />
+        </copy>
+    </target>
+	
+    <target name="compile" depends="init">
+        <echo> compilation </echo>	
+        <javac srcdir="../socobis-ejb/src/java" destdir="${build-socobis-ejb_jar}" nowarn="true" debug="on" deprecation="off" classpathref="classpath" includeantruntime="false" encoding="iso-8859-1">
+        </javac>
+        <echo> compilation done </echo>	
+    </target>
+    
+    <target name="buildEjbJar" depends="compile">
+        <echo>Build EJB JAR</echo>
+        <jar basedir="${build-socobis-ejb_jar}" destfile="${buildEar.dir}/${socobis-jarname}" />
+        <copy file="${buildEar.dir}/${socobis-jarname}" todir="${build-socobis-war_war}/WEB-INF/lib/">
+        </copy>
+        <echo>End Build EJB JAR</echo>
+    </target>
+
+    <target name="compileWar" depends="buildEjbJar">
+        <echo> compilation </echo>
+        <javac srcdir="../socobis-war/src/java" destdir="${build-socobis-war_war}/WEB-INF/classes/" nowarn="true" debug="on" deprecation="off" classpathref="classpath" includeantruntime="false" encoding="iso-8859-1">
+            <classpath>
+                <pathelement location="${buildEar.dir}/${socobis-jarname}" />
+            </classpath>
+        </javac>
+        <echo> compilation done</echo>
+    </target>
+
+
+    <target name="copieProperties" depends="compileWar">
+        <echo> Copie des properties</echo>
+        <copy file="${srcproperties.dir}/text.properties" todir="${build-socobis-war_war}/WEB-INF/classes">
+        </copy>
+        <copy file="${srcproperties.dir}/text_zh.properties" todir="${build-socobis-war_war}/WEB-INF/classes">
+        </copy>
+        <echo> Fin de la copie </echo>
+    </target>
+	
+	
+    <target name="deploy" depends="copieProperties">	
+        <echo>${env.JBOSS_HOME}</echo>
+        <!--<echo> deployement ear </echo>-->
+        <!--                <copy todir="${deploy.dir}">
+            <fileset dir="${build.dir}" >
+                <include name="${ketrika-earname}"/>
+            </fileset>	
+        </copy>-->
+        <copy todir="${deploy.dir}/socobis.war">
+            <fileset dir="${build-socobis-war_war}" >
+                <include name="**/*"/>
+            </fileset>	
+        </copy>
+        <touch file="${deploy.dir}/socobis.war.dodeploy"/>
+        <echo> deployement exploded war done </echo>	
+        <echo> 
+            Compilation socobis GENIUS_ART_C [DONE]----------------
+        </echo>
+		
+    </target>	
+	
+	
+
+</project>

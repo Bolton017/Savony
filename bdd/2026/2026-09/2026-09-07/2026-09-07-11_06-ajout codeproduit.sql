@@ -1,0 +1,15 @@
+create or replace view INVENTAIREFILLELIB as
+SELECT
+    i.ID ,
+    i.IDINVENTAIRE ,
+    i.IDPRODUIT ,
+    p.libelle AS IDPRODUITLIB,
+    i.EXPLICATION ,
+    i.QUANTITETHEORIQUE ,
+    i.QUANTITE,
+    p.LIBELLEEXTACTE,
+    i.pu,
+    cast((i.QUANTITE - i.QUANTITETHEORIQUE) as decimal(30,2)) AS ecart,
+    p.PARFUMS
+FROM INVENTAIREFILLE i
+         LEFT JOIN AS_INGREDIENTS  p ON p.ID  = i.IDPRODUIT;

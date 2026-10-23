@@ -1,0 +1,84 @@
+.apj-compta-list .apj-compta-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.apj-compta-list .apj-compta-toolbar .form-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+
+.apj-compta-list .apj-compta-toolbar .form-group label { margin: 0; }
+.apj-compta-list .apj-compta-toolbar .form-control { width: 130px; }
+.apj-compta-list .apj-compta-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.apj-compta-list .apj-balance-toolbar { justify-content: flex-end; }
+.apj-compta-list .box.table-box { margin-bottom: 0; }
+.apj-compta-list .box.table-box .box-body { max-height: 500px; }
+.apj-compta-list .apj-compta-table-scroll { overflow-x: auto; }
+.apj-compta-list [data-apj-account-table] { min-width: 1080px; margin-bottom: 0; }
+.apj-compta-list [data-apj-account-table] th,
+.apj-compta-list [data-apj-account-table] td { padding: 9px 11px; }
+.apj-compta-list [data-apj-account-table] thead th { white-space: nowrap; }
+.apj-compta-list [data-apj-account-table] .apj-account-heading th {
+    background: var(--Background-tertiaire);
+    color: var(--Text-primary);
+    font-weight: 600;
+}
+.apj-compta-list [data-apj-account-table] .table-apj-footer td { font-weight: 600; }
+.apj-compta-list [data-apj-account-table] .apj-account-row-hidden { display: none !important; }
+.apj-compta-list .apj-export-forms { display: none; }
+.apj-compta-list [data-apj-balance-table] { min-width: 1080px; margin-bottom: 0; }
+.apj-compta-list [data-apj-balance-table] th,
+.apj-compta-list [data-apj-balance-table] td { padding: 9px 11px; }
+.apj-compta-list [data-apj-balance-table] td:nth-child(n+3) { text-align: right; white-space: nowrap; }
+.apj-compta-list [data-apj-balance-table] tfoot td { font-weight: 600; background: var(--Background-tertiaire); }
+.apj-compta-list [data-apj-balance-table] .apj-balance-row-hidden { display: none !important; }
+
+.apj-compta-list .apj-table-column-filter-summary { display: flex; align-items: center; gap: 6px; min-height: 30px; }
+.apj-compta-list .apj-table-column-filter-label {
+    flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis;
+    white-space: nowrap; font-size: 12px;
+}
+.apj-compta-list .apj-table-column-filter-toggle {
+    position: relative; display: inline-grid; place-items: center; flex: 0 0 auto;
+    width: 28px; height: 28px; padding: 0; border: 0; border-radius: 7px;
+    background: transparent; color: var(--Text-secondary); cursor: pointer;
+}
+.apj-compta-list .apj-table-column-filter-toggle i { font-size: 15px; }
+.apj-compta-list .apj-table-column-filter-toggle:hover,
+.apj-compta-list .apj-table-column-filter-toggle:focus-visible {
+    background: var(--Background-tertiaire); color: var(--Text-primary);
+}
+.apj-compta-list .apj-table-column-filter.is-active .apj-table-column-filter-toggle {
+    background: var(--Primaire-blue-main-color); color: #fff;
+}
+.apj-compta-list .apj-table-column-filter.is-active .apj-table-column-filter-toggle::after {
+    content: ''; position: absolute; top: 3px; right: 3px;
+    width: 5px; height: 5px; border-radius: 50%; background: #fff;
+}
+.apj-compta-list .apj-table-column-filter-editor { display: none; position: relative; }
+.apj-compta-list .apj-table-column-filter.is-editing .apj-table-column-filter-summary { display: none; }
+.apj-compta-list .apj-table-column-filter.is-editing .apj-table-column-filter-editor { display: flex; }
+.apj-compta-list .apj-table-column-filter-input {
+    width: 100%; min-width: 76px; height: 30px; padding: 0 28px 0 8px;
+    border: 1px solid var(--Border); border-radius: 7px;
+    background: var(--Background-primaire); color: var(--Text-primary); font: inherit;font-size: 12px;
+}
+.apj-compta-list .apj-table-column-filter-cancel {
+    position: absolute; right: 3px; top: 2px; width: 25px; height: 25px;
+    padding: 0; border: 0; border-radius: 50%; background: transparent;
+    color: var(--Text-secondary); font-size: 18px; cursor: pointer;
+}
+
+@media (max-width: 767px) {
+    .apj-compta-list .apj-compta-toolbar { align-items: stretch; }
+    .apj-compta-list .apj-compta-actions { width: 100%; }
+    .apj-compta-list .apj-compta-actions .btn { flex: 1; }
+    .apj-compta-list .pagination-bas-page { flex-wrap: wrap; }
+}

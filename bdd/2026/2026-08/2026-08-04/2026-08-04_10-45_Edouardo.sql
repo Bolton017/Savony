@@ -1,0 +1,1 @@
+INSERT INTO menudynamique (id, libelle, icone, href, rang, niveau, id_pere) VALUES ('MNDN00000003434', 'Fichier d''inventaire', 'list_alt', 'module.jsp?but=stock/inventaire/fichier-inventaire.jsp', 3, 3, 'MNDN000000021');

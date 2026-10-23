@@ -1,0 +1,88 @@
+CREATE OR REPLACE VIEW "AS_BONDECOMMANDE_MERECPL" AS 
+  SELECT
+    ab.ID,
+    ab.DATY,
+    ab.ETAT,
+    ab.REMARQUE,
+    ab.DESIGNATION,
+    ab.MODEPAIEMENT,
+    ab.FOURNISSEUR,
+    ab.REFERENCE,
+    ab.dateLimite,
+    ab.REMISE,
+    mp.VAL AS MODEPAIEMENTLIB,
+    F.NOM AS FOURNISSEURLIB,
+    CAST(abf.montantTVA*(1-(ab.REMISE/100)) as number(30,2)) as montantTVA,
+    cast((abf.montantHT - abf.remiseMontant) * (1 - ab.REMISE/100) as number(30,2)) as montantHT,
+	CAST(nvl(((abf.montantHT - abf.remiseMontant) + abf.montantTVA) * (1 - ab.REMISE/100), 0) AS NUMBER(30,2)) AS montantTTC,
+    CAST(nvl((abf.montantHT + abf.montantTVA- abf.remiseMontant) * abf.TAUXDECHANGE*(1-(ab.REMISE/100)),0) AS NUMBER(30,2)) AS montantTTCAriary,
+    d.val AS idDeviselib,
+    d.id AS IDDEVISE,
+    AB.idOrigine,
+    AB.IDMAGASIN,
+    m.VAL AS idMagasinlib,
+    CASE
+        WHEN ab.ETAT = 0 THEN 'ANNUL&Eacute;'
+        WHEN ab.ETAT = 1 THEN 'CR&Eacute;&Eacute;'
+       	WHEN ab.ETAT = 4 THEN 'VIS&Eacute; PAR CI'
+       	WHEN ab.ETAT = 9 THEN 'VIS&Eacute; PAR CG'
+       	WHEN ab.ETAT = 11 THEN 'VIS&Eacute; PAR PDG'
+    END AS ETATLIB,
+    ab.service,ab.REMISEMONTANT,s.LIBELLE as servicelib,
+    ab.echeance,
+    ab.dateecheance
+
+
+from  AS_BONDECOMMANDE AB
+          left join MODEPAIEMENT mp on AB.MODEPAIEMENT = mp.id
+          left join FOURNISSEUR F on AB.FOURNISSEUR = F.id
+          LEFT JOIN AS_BONDECOMMANDEFILLE_CPL_GRP abf ON abf.IDBC = ab.ID
+          LEFT JOIN DEVISE d ON d.id = ab.IDDEVISE
+          LEFT JOIN MAGASINPOINT m ON m.id =  AB.IDMAGASIN
+          LEFT JOIN SERVICE s ON s.COMPTE = AB.SERVICE
+
+ ;
+
+CREATE OR REPLACE VIEW "AS_BONDECOMMANDE_CPL" AS 
+  select bcf.ID,bcf.PRODUIT,bcf.IDBC,bcf.QUANTITE,bcf.QUANTITE*bcf.PU AS montant,bcf.PU,bcf.TVA,bcf.UNITE,bcf.REMISE,
+       ab.DATY,
+       ab.ETAT,
+       ab.REMARQUE,
+--       ab.DESIGNATION,
+       ab.MODEPAIEMENT,
+       ab.FOURNISSEUR,
+       ab.REFERENCE,
+       p.LIBELLE  as produitlib,
+       u.VAL  as unitelib,
+       mp.VAL as MODEPAIEMENTLIB,
+       F.nom  AS FOURNISSEURLIB,
+       CAST(bcf.quantite * bcf.pu * ((bcf.remise/100)+(ab.REMISE/100)) AS NUMBER(30,2)) AS remiseMontant,
+       CAST(bcf.quantite * bcf.pu*(1-bcf.remise/100) AS NUMBER(30,2)) AS montantht,
+       CAST((bcf.quantite * bcf.pu - (bcf.quantite * bcf.pu * (bcf.remise/100))) * (bcf.tva/100)*(1-(ab.REMISE/100)) AS NUMBER(30,2)) AS montanttva,
+       CAST((bcf.quantite * bcf.pu - (bcf.quantite * bcf.pu * (bcf.remise/100)))*(1-(ab.REMISE/100))
+            + (bcf.quantite * bcf.pu - (bcf.quantite * bcf.pu * (bcf.remise/100))) * (bcf.tva/100)*(1-(ab.REMISE/100))
+           AS NUMBER(30,2)) AS montantttc,
+       bcf.iddevise,
+       CAST((
+           (bcf.quantite * bcf.pu - (bcf.quantite * bcf.pu * (bcf.remise/100)))
+               + (bcf.quantite * bcf.pu - (bcf.quantite * bcf.pu * (bcf.remise/100))) * (bcf.tva/100)
+           ) * bcf.TAUXDECHANGE*(1-(ab.REMISE/100))
+       AS NUMBER(30,2)) AS montantttcar,
+       bcf.TAUXDECHANGE,
+       bcf.designation,
+       CASE
+	    WHEN ETAT = 0 THEN 'ANNUL&Eacute;'
+        WHEN ETAT = 1 THEN 'CR&Eacute;&Eacute;'
+       	WHEN etat = 4 THEN 'VIS&Eacute; PAR CI'
+       	WHEN etat = 9 THEN 'VIS&Eacute; PAR CG'
+       	WHEN etat = 11 THEN 'VIS&Eacute; PAR PDG'
+       END AS etatLib
+       
+from AS_BONDECOMMANDE_FILLE bcf
+         left outer join AS_BONDECOMMANDE AB on AB.ID = bcf.IDBC
+         left join AS_INGREDIENTS P on bcf.PRODUIT = P.ID
+         left join AS_UNITE u on bcf.UNITE = u.id
+         left join MODEPAIEMENT mp on AB.MODEPAIEMENT = mp.id
+         left join fournisseur F on AB.fournisseur = F.id
+
+ ;

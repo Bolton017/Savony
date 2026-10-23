@@ -1,0 +1,2 @@
+insert into USERMENU (ID, REFUSER, IDMENU, IDROLE, CODESERVICE, CODEDIR, INTERDIT)
+values ('UM27CCE0046', null, 'MNDN000000002', 'securite', null, null, 0);

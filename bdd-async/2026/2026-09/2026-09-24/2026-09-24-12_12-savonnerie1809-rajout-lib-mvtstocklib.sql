@@ -1,0 +1,54 @@
+CREATE OR REPLACE VIEW MVTSTOCKLIB AS 
+  SELECT
+    m.ID ,
+    m.DESIGNATION ,
+    m.IDMAGASIN ,
+    m.IDOBJET ,
+    m2.VAL  AS idMagasinlib,
+    m.IDVENTE ,
+    v.DESIGNATION  AS idVentelib,
+    m.IDTRANSFERT ,
+    CAST('' AS VARCHAR2(255)) AS idTransfertlib,
+    m.IDTYPEMVSTOCK ,
+    t.VAL AS idTypeMvStocklib ,
+    m.DATY ,
+    m.ETAT ,
+    CASE
+        WHEN m.ETAT = 0
+            THEN 'ANNUL&Eacute;E'
+        WHEN m.ETAT = 1
+            THEN 'CR&Eacute;&Eacute;E'
+        WHEN m.ETAT = 11
+            THEN 'VALID&Eacute;E'
+        END AS etatlib,
+    v.IDRESERVATION,
+    gm.montantEntree,
+    gm.montantSortie,
+    (
+        m.DESIGNATION || ' ' ||
+        NVL(m2.VAL, '') || ' ' ||
+        NVL(v.DESIGNATION, '') || ' ' ||
+        TO_CHAR(m.DATY, 'YYYY-MM-DD')
+        ) AS motsClesss,
+    m.remarque,
+    m.HEURE,
+    m2.IDDEPARTEMENT,
+    s.LIBELLE AS idDepartementLib
+FROM MVTSTOCK m
+         LEFT JOIN TYPEMVTSTOCK t ON t.ID = m.IDTYPEMVSTOCK
+         LEFT JOIN VENTE v ON v.ID = m.IDVENTE
+         LEFT JOIN MAGASIN2 m2 ON m2.ID = m.IDMAGASIN
+         LEFT JOIN SERVICE s ON m2.IDDEPARTEMENT = s.ID
+         left join mvtStockFilleGroupeMere gm on gm.IDMVTSTOCK=m.ID;
+
+CREATE OR REPLACE VIEW MVTSTOCKLIBCREER AS 
+  SELECT
+m.ID,m.DESIGNATION,m.IDMAGASIN,m.IDOBJET,m.IDMAGASINLIB,m.IDVENTE,m.IDVENTELIB,m.IDTRANSFERT,m.IDTRANSFERTLIB,m.IDTYPEMVSTOCK,m.IDTYPEMVSTOCKLIB,m.DATY,m.ETAT,m.ETATLIB,m.IDRESERVATION,m.HEURE,m.IDDEPARTEMENT,m.idDepartementLib
+FROM MVTSTOCKLIB m
+WHERE m.ETAT = 1;
+
+CREATE OR REPLACE VIEW MVTSTOCKLIBVALIDER AS 
+  SELECT
+m.ID,m.DESIGNATION,m.IDMAGASIN,m.IDOBJET,m.IDMAGASINLIB,m.IDVENTE,m.IDVENTELIB,m.IDTRANSFERT,m.IDTRANSFERTLIB,m.IDTYPEMVSTOCK,m.IDTYPEMVSTOCKLIB,m.DATY,m.ETAT,m.ETATLIB,m.IDRESERVATION,m.HEURE,m.IDDEPARTEMENT,m.idDepartementLib
+FROM MVTSTOCKLIB m
+WHERE m.ETAT = 11;

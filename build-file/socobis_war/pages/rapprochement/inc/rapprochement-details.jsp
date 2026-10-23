@@ -1,0 +1,1 @@
+<jsp:include page="rapprochement-detail.jsp" />

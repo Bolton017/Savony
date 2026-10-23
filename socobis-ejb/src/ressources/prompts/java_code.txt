@@ -1,0 +1,200 @@
+Si l'utilisateur demande un ou plusieurs mapping de classe.
+Tu dois générer du code Java 8 en respectant ces règles :
+    1. Réponds en JSON par le code Java et n'oublie pas java au debut et a la fin (et jsp si il y en a avec jsp au debut et  a la fin) avec du texte explicatif et mets ta reponse dans iaResp dans ce JSON du format  :
+    {
+        type: dev,
+        iaResp: java\n ton code java ici\n\njsp\n ton code JSP ici\n
+    }
+
+    NE JAMAIS oublier les balises lang et  de fermeture.
+    Aucune explication hors des blocs de code.
+
+    2. Utilise les conventions du framework APJ (constructeurs, services, DAO, exceptions APJ...).
+    3. Le code doit compiler sans dépendances externes.
+    4. Le code doit être auto-contenu dans une seule classe si possible.
+    5. Ajoute des check logiques dans les setters et throw une Exception si le check fail
+    6. Utilise les types primitfs le plus possible et utilise java.sql.Date pour le dates.
+    7. Tu dois toujours utiliser l’un des templates suivants selon le cas :
+
+    --- Classe simple (extends ClassMAPTable) ---
+java
+    package aiGenerated;
+    import bean.ClassMAPTable;
+    public class Exemple extends ClassMAPTable {
+        //les attributs de la table (meme nom)
+            String id;
+            String var1;
+            String var2;
+
+        public Exemple(){ super.setNomTable(\"exemple\"); }
+        // retourne la valeur de l'id
+        @Override public String getTuppleID(){ return id; }
+        //retour le nom de variable de l'id
+        @Override public String getAttributIDName(){ return \"id\"; }
+
+        @Override
+        public void construirePK(Connection c) throws Exception {
+        //premier argument c'est l'indice du PK, et deuxieme la sequence pour le prochain
+            this.preparePk(\"EX\", \"getSeqExemple\");
+            this.setId(makePK(c));
+        }
+
+        //genere les getters et setters
+
+        public String getId() {return id;}
+
+        public void setId(String id) {this.id = id;}
+
+        public String getVar1() {return var1;}
+
+        public void setVar1(String var1) {this.var1 = var1;}
+
+        public String getVar2() {return var2;}
+
+        public void setVar2(String var2) { this.var2 = var2;}
+    }
+
+
+    --- Classe avec état (extends ClassEtat) ---
+java
+    package aiGenerated;
+    import bean.ClassEtat;
+    public class ExempleEtat extends ClassEtat {
+        //les attributs de la table (meme nom)
+            String id;
+            String var1;
+            String var2;
+
+        public ExempleEtat(){ super.setNomTable(\"exemple_etat\"); }
+        // retourne la valeur de l'id
+        @Override public String getTuppleID(){ return id; }
+        //retour le nom de variable de l'id
+        @Override public String getAttributIDName(){ return \"id\"; }
+
+        @Override
+        public void construirePK(Connection c) throws Exception {
+        //premier argument c'est l'indice du PK, et deuxieme la sequence pour le prochain
+            this.preparePk(\"ET\", \"getSeqExempleEtat\");
+            this.setId(makePK(c));
+        }
+
+        //genere les getters et setters
+
+        public String getId() {return id;}
+
+        public void setId(String id) {this.id = id;}
+
+        public String getVar1() {return var1;}
+
+        public void setVar1(String var1) {this.var1 = var1;}
+
+        public String getVar2() {return var2;}
+
+        public void setVar2(String var2) { this.var2 = var2;}
+    }
+
+    --- Classe mère (extends ClassMere) ---
+java
+    package aiGenerated;
+    import bean.ClassMere;
+    public class ExempleMere extends ClassMere {
+        //les attributs de la table (meme nom)
+            String id;
+            String var1;
+            String var2;
+
+
+        public ExempleMere(){ super.setNomTable(\"exemple_mere\"); }
+
+        // retourne la valeur de l'id
+        @Override
+        public String getTuppleID() {return id;}
+
+        //retour le nom de variable de l'id
+        @Override
+        public String getAttributIDName() {return \"id\";}
+
+        //retourne le nom de la class fille
+        @Override
+        public  String getNomClasseFille(){ return \"aiGenerated.ExempleFille\";}
+
+        //retourne la liaison de mere-fille dans la class fille
+        @Override
+        public String getLiaisonFille() {return \"idMere\";}
+
+        @Override
+        public void construirePK(Connection c) throws Exception {
+        //premier argument c'est l'indice du PK, et deuxieme la sequence pour le prochain
+            this.preparePk(\"EM\", \"getSeqExempleMere\");
+            this.setId(makePK(c));
+        }
+
+        //genere les getters et setters
+
+        public String getId() {return id;}
+
+        public void setId(String id) {this.id = id;}
+
+        public String getVar1() {return var1;}
+
+        public void setVar1(String var1) {this.var1 = var1;}
+
+        public String getVar2() {return var2;}
+
+        public void setVar2(String var2) { this.var2 = var2;}
+    }
+
+    --- Classe fille (extends ClassFille) ---
+java
+    package aiGenerated;
+    import bean.ClassFille;
+    public class ExempleFille extends ClassFille {
+        //les attributs de la table (meme nom)
+        String id;
+        String idMere;
+        String var2;
+
+       // retourne la valeur de l'id
+       @Override
+       public String getTuppleID() {return id;}
+
+       //retour le nom de variable de l'id
+       @Override
+       public String getAttributIDName() {return \"id\";}
+
+       //retourne le nom de la class mere
+       @Override
+       public  String getNomClasseMere(){return \"aiGenerated.ExempleMere\";}
+
+       //retourne la liaison de mere-fille dans la class fille
+       @Override
+       public String getLiaisonMere() {return \"idMere\";}
+
+       @Override
+       public void construirePK(Connection c) throws Exception {
+       //premier argument c'est l'indice du PK, et deuxieme la sequence pour le prochain
+           this.preparePk(\"EF\", \"getSeqExempleFille\");
+           this.setId(makePK(c));
+       }
+
+       //genere les getters et setters
+
+       public String getId() {return id;}
+
+       public void setId(String id) {this.id = id;}
+
+       public String getIdMere() {return idMere;}
+
+       public void setIdMere(String idMere) {this.idMere = idMere;}
+
+       public String getVar2() {return var2;}
+
+       public void setVar2(String var2) { this.var2 = var2;}
+    }
+1. Réponds en un seul JSON pour le code et jsp par le code Java et n'oublie pas java au debut et a la fin (et jsp si il y en a avec jsp au debut et  a la fin) avec du texte explicatif et mets ta reponse dans iaResp dans ce JSON du format  :
+    {
+        type: dev,
+        iaResp: java\n ton code java ici\n\njsp\n ton code JSP ici\n
+    }
+    Seulement un json pour le code java et code jsp
+Besoin de l'utilisateur : {besoin}

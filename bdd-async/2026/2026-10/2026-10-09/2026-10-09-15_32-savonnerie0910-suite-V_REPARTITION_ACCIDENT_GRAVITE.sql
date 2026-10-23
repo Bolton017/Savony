@@ -1,0 +1,12 @@
+CREATE VIEW V_REPARTITION_ACCIDENT_GRAVITE (ID_GRAVITE_LIB, NOMBREACCIDENTS) AS 
+  SELECT
+    ga.val AS id_gravite_lib,
+    COUNT(a.ID) AS nombreAccidents
+FROM ACCIDENT a
+         JOIN GRAVITE_ACCIDENT ga
+              ON ga.ID = a.ID_GRAVITE
+GROUP BY ga.val
+ORDER BY nombreAccidents DESC;
+
+
+

@@ -1,0 +1,51 @@
+CREATE TABLE objectifproduction (
+    ID VARCHAR2(500) PRIMARY KEY,
+    IDPRODUIT VARCHAR2(500),
+    QTE NUMBER(38 , 0),
+    UNITE VARCHAR2(500),
+
+    CONSTRAINT FK_PRODUIT_INGREDIENT
+        FOREIGN KEY (IDPRODUIT)
+        REFERENCES AS_INGREDIENTS(ID),
+
+    CONSTRAINT FK_PRODUIT_UNITE
+        FOREIGN KEY (UNITE)
+        REFERENCES AS_UNITE(ID)
+);
+
+CREATE SEQUENCE seqObjectifProduction INCREMENT BY 1 MINVALUE 1 MAXVALUE 999999999999 NOCYCLE CACHE 20 NOORDER 
+
+CREATE OR REPLACE FUNCTION getSeqObjectifProduction
+   RETURN NUMBER
+IS
+   retour   NUMBER;
+BEGIN
+   SELECT seqObjectifProduction.NEXTVAL INTO retour FROM DUAL;
+
+   RETURN retour;
+END;
+
+CREATE OR REPLACE VIEW objectifproductionlib as
+SELECT o.ID , o.IDPRODUIT ,o.QTE ,o.UNITE ,ai.LIBELLE AS idproduitLib ,au.VAL AS unitelib FROM objectifproduction o
+LEFT JOIN AS_INGREDIENTS ai ON ai.id = o.IDPRODUIT 
+LEFT JOIN AS_UNITE au ON au.id = o.UNITE ;
+
+
+INSERT INTO LIGNE
+(ID, VAL, DESCE)
+VALUES('LGN001', 'Ménage', 'Ménage');
+INSERT INTO LIGNE
+(ID, VAL, DESCE)
+VALUES('LGN002', 'Toilettes', 'Toilettes');
+INSERT INTO LIGNE
+(ID, VAL, DESCE)
+VALUES('LGN003', 'Détergent Poudre', 'Détergent Poudre');
+INSERT INTO LIGNE
+(ID, VAL, DESCE)
+VALUES('LGN004', 'Détergent Liquide', 'Détergent Liquide');
+INSERT INTO LIGNE
+(ID, VAL, DESCE)
+VALUES('LGN005', 'Pâte de savon', 'Pâte de savon');
+ 
+ 
+ 

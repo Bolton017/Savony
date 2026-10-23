@@ -1,0 +1,19 @@
+CREATE OR REPLACE VIEW AS_BONDECOMMANDE_FILLE_CPL AS(
+  SELECT
+	asbc.ID,
+	asbc.PRODUIT,
+	asbc.IDBC,
+	asbc.QUANTITE,
+	asbc.PU,
+	asbc.MONTANT,
+	asbc.TVA,
+	asbc.UNITE,
+	asbc.REMISE,
+	asbc.IDDEVISE,
+	asbc.TAUXDECHANGE,
+	asing.libelle AS PRODUITLIB,
+	asbc.remiseMontant AS REMISEMONTANT
+FROM
+	AS_BONDECOMMANDE_FILLE asbc
+LEFT JOIN AS_INGREDIENTS asing ON
+	asbc.PRODUIT = asing.ID);

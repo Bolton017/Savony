@@ -1,0 +1,40 @@
+CREATE OR REPLACE VIEW RELEVERDETAILNRMVT AS
+SELECT
+    ID,
+    DESIGNATION,
+    DEBIT,
+    CREDIT,
+    DATYVALEUR,
+    IDCAISSE,
+    COMPTE,
+    CASE
+        WHEN DEBIT > 0 THEN 1
+        WHEN CREDIT > 0 THEN 2
+        ELSE 0
+    END AS MOUVEMENT
+FROM RELEVERDETAILNR;
+
+CREATE OR REPLACE VIEW SOUSECRITURENRMVT AS
+SELECT
+    ID,
+    LIBELLEPIECE,
+    DEBIT,
+    CREDIT,
+    DATY,
+    IDCAISSE,
+    COMPTE,
+    CASE
+        WHEN DEBIT > 0 THEN 1
+        WHEN CREDIT > 0 THEN 2
+        ELSE 0
+    END AS MOUVEMENT
+FROM SOUSECRITURENR;
+
+create or replace view RELEVERLIB as
+select
+    r."ID",r."DATY",r."IDCAISSE",r."ETAT" ,
+    c.val as idcaisselib,
+    r.DATYDEBUT,
+    r.DATYFIN
+from Relever r
+         join caisse c on c.id = r.idcaisse;

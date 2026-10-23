@@ -1,0 +1,12 @@
+INSERT INTO menudynamique (id, libelle, icone, href, rang, niveau, id_pere) VALUES ('MENDYN1765481923948780', 'Gestion des abscenses', 'add', '', 8, 2, 'ELM000010');
+UPDATE menudynamique SET rang = 5 WHERE id = 'MD000020040030';
+UPDATE menudynamique SET rang = 6 WHERE id = 'MENDYN1765357174546422';
+UPDATE menudynamique SET rang = 7 WHERE id = 'MD00021110001';
+UPDATE menudynamique SET rang = 8 WHERE id = 'MENDYN1765437395219335';
+INSERT INTO menudynamique (id, libelle, icone, href, rang, niveau, id_pere) VALUES ('MENDYN1765481946508374', 'test', 'list_alt', '', 1, 3, 'MENDYN1765481923948780');
+UPDATE menudynamique SET rang = 1 WHERE id = 'JUIN004';
+UPDATE menudynamique SET rang = 2 WHERE id = 'JUIK003';
+UPDATE menudynamique SET rang = 3 WHERE id = 'JUIN003';
+UPDATE menudynamique SET rang = 4 WHERE id = 'MD000000001_2';
+UPDATE menudynamique SET id_pere = 'MENDYN1765481923948780' WHERE id = 'MD000000001_2';
+DELETE FROM menudynamique WHERE id = 'MENDYN1765481946508374';

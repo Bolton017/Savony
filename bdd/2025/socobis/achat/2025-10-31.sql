@@ -1,0 +1,37 @@
+CREATE TABLE HISTORIQUEPRIX (
+    ID VARCHAR2(255) NOT NULL,
+    DATY DATE,
+    PV NUMBER(30,2) DEFAULT 0,
+    idProduit VARCHAR2(255),
+    idFacturefournisseurfille VARCHAR2(255),
+    REMARQUE VARCHAR2(255),
+    ETAT NUMBER(*,0) DEFAULT 1,
+    CONSTRAINT HISTORIQUEPRIX_PK PRIMARY KEY (ID)
+);
+
+CREATE OR REPLACE VIEW HISTORIQUEPRIXLIB AS 
+  SELECT 
+  	h.ID,
+  	ing.LIBELLE AS produit,
+	h.DATY,
+	h.PV,
+	h.idProduit,
+	h.idFacturefournisseurfille,
+	h.REMARQUE,
+	h.ETAT,
+	CASE
+		WHEN h.ETAT=1
+		THEN 'CR&Eacute;&Eacute;'
+		WHEN h.ETAT=11
+		THEN 'VALID&Eacute;'
+		WHEN h.ETAT=0
+		THEN 'ANNUL&Eacute;'
+	    WHEN h.ETAT=21
+		THEN 'ENTAM&Eacute;'
+	    WHEN h.ETAT=31
+		THEN 'BLOQU&Eacute;'
+	    WHEN h.ETAT=41
+		THEN 'TERMIN&Eacute;'
+	END AS ETATLIB
+FROM HISTORIQUEPRIX h 
+	LEFT JOIN AS_INGREDIENTS ing ON ing.ID = h.idProduit;

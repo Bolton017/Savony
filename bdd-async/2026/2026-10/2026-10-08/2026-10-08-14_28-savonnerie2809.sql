@@ -1,0 +1,62 @@
+-- TVA déductible (comptes 4456%)
+CREATE OR REPLACE VIEW COMPTASOUSECRITURETVA_D AS
+SELECT ID,
+       NUMERO,
+       COMPTE,
+       JOURNAL,
+       IDJOURNAL,
+       ECRITURE,
+       DATY,
+       CREDIT,
+       DEBIT,
+       DATECOMPTABLE,
+       EXERCICE,
+       REMARQUE,
+       ETAT,
+       IDMERE,
+       HORSEXERCICE,
+       OD,
+       ORIGINE,
+       TIERS,
+       LIBELLEPIECE,
+       COMPTE_AUX,
+       RAISONSOCIAL,
+       FOLIO,
+       LETTRAGE,
+       ANALYTIQUE,
+       MOISDECLARATION,
+       DECLARATION
+FROM COMPTASOUSECRITURETVA
+WHERE COMPTE LIKE '4456%';
+
+-- TVA collectée (comptes 4457%)
+CREATE OR REPLACE VIEW COMPTASOUSECRITURETVA_C AS
+SELECT ID,
+       NUMERO,
+       COMPTE,
+       JOURNAL,
+       IDJOURNAL,
+       ECRITURE,
+       DATY,
+       CREDIT,
+       DEBIT,
+       DATECOMPTABLE,
+       EXERCICE,
+       REMARQUE,
+       ETAT,
+       IDMERE,
+       HORSEXERCICE,
+       OD,
+       ORIGINE,
+       TIERS,
+       LIBELLEPIECE,
+       COMPTE_AUX,
+       RAISONSOCIAL,
+       FOLIO,
+       LETTRAGE,
+       ANALYTIQUE,
+       MOISDECLARATION,
+       DECLARATION
+FROM COMPTASOUSECRITURETVA
+WHERE COMPTE LIKE '4457%';
+ 

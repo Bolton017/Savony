@@ -1,0 +1,64 @@
+CREATE OR REPLACE
+VIEW COMPTA_SOUSECRITURE_LIB
+            (ID,
+NUMERO,
+COMPTE,
+JOURNAL,
+IDJOURNAL,
+ECRITURE,
+DATY,
+CREDIT,
+DEBIT,
+DATECOMPTABLE,
+EXERCICE,
+REMARQUE,
+             ETAT,
+IDMERE,
+HORSEXERCICE,
+OD,
+ORIGINE,
+TIERS,
+LIBELLEPIECE,
+COMPTE_AUX,
+RAISONSOCIAL,
+FOLIO,
+LETTRAGE,
+             ANALYTIQUE,
+idobjet)
+AS
+SELECT
+	sousecr.id,
+	cpt.LIBELLE,
+	cpt.COMPTE,
+	jrn.val || '| ' || jrn.DESCE ,
+	jrn.id,
+	sousecr.REMARQUE AS DESIGNATION,
+	sousecr.DATY,
+	sousecr.CREDIT,
+	sousecr.DEBIT,
+	sousecr.DATY AS DATECOMPTABLE,
+	sousecr.EXERCICE,
+	sousecr.REMARQUE,
+	sousecr.ETAT,
+	sousecr.idmere,
+	CAST(0 AS NUMBER) AS HORSEXERCICE,
+	CAST('-' AS varchar(50)) AS OD,
+	--    cast('' as varchar(50)) AS ORIGINE,
+	ce.origine AS ORIGINE,
+	CAST('' AS varchar2(50)) AS tiers,
+	sousecr.LIBELLEPIECE,
+	sousecr.COMPTE_AUX,
+	CAST('' AS varchar(100)) AS RAISONSOCIAL ,
+	sousecr.folio ,
+	sousecr.LETTRAGE ,
+	sousecr.ANALYTIQUE,
+	ce.IDOBJET AS idobjet
+	-- nanampy colonne id objet ftsn
+FROM
+	COMPTA_SOUS_ECRITURE sousecr
+JOIN COMPTA_COMPTE cpt ON
+	sousecr.COMPTE = cpt.COMPTE
+JOIN COMPTA_JOURNAL jrn ON
+	sousecr.JOURNAL = jrn.ID
+LEFT JOIN COMPTA_ECRITURE CE ON
+	CE.ID = sousecr.idMERE;

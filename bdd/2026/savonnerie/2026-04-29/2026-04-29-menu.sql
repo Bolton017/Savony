@@ -1,0 +1,3 @@
+INSERT INTO menudynamique (id, libelle, icone, href, rang, niveau, id_pere) VALUES ('MENDYN1777469172301972', 'Import prix tarif', 'article', '', 3, 2, 'ELM00317777002');
+INSERT INTO menudynamique (id, libelle, icone, href, rang, niveau, id_pere) VALUES ('MENDYN1777469211400711', 'Import', 'file_upload', 'module.jsp?but=produits/tarifIngredients/tarifIngredients-import.jsp', 1, 3, 'MENDYN1777469172301972');
+INSERT INTO menudynamique (id, libelle, icone, href, rang, niveau, id_pere) VALUES ('MENDYN1777469242753266', 'Liste', 'view_list', 'module.jsp?but=produits/tarifIngredients/importprix-liste.jsp', 2, 3, 'MENDYN1777469172301972');

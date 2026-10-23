@@ -1,0 +1,1 @@
+UPDATE magasin2 SET val = 'Magasin chapiteaux' WHERE id = 'MAGAPPRO1';

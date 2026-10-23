@@ -1,0 +1,3 @@
+UPDATE MENUDYNAMIQUE
+SET LIBELLE='Fournisseur', ICONE='group', HREF='module.jsp?but=fournisseur/fournisseur-liste.jsp', RANG=2, NIVEAU=3, ID_PERE='MENDYN1765272561517975'
+WHERE ID='MNDN0000508004';

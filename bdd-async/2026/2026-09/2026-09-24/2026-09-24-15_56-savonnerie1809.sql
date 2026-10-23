@@ -1,0 +1,57 @@
+CREATE OR REPLACE VIEW INVENTAIRELIB AS 
+  SELECT
+    i.ID ,
+    i.DATY ,
+    i.DESIGNATION ,
+    i.IDMAGASIN ,
+    m.VAL AS IDMAGASINLIB,
+    i.ETAT ,
+    CASE
+        WHEN i.ETAT = 0
+            THEN 'ANNUL&Eacute;E'
+        WHEN i.ETAT = 1
+            THEN 'CR&Eacute;&Eacute;E'
+        WHEN i.ETAT = 11
+            THEN 'VALID&Eacute;E'
+        END AS ETATLIB,
+    i.idcategorie,
+    c.VAL AS idcategorieLib,
+    UPPER(
+            NVL(i.DESIGNATION, '') || ' ' ||
+            NVL(m.VAL, '') || ' ' ||
+            NVL(c.VAL, '') || ' ' ||
+            NVL(i.ID, '') || ' ' ||
+            TO_CHAR(i.DATY, 'DD/MM/YYYY') || ' ' ||
+            NVL(
+                    CASE
+                        WHEN i.ETAT = 0 THEN 'ANNUL&Eacute;E'
+                        WHEN i.ETAT = 1 THEN 'CR&Eacute;&Eacute;E'
+                        WHEN i.ETAT = 11 THEN 'VALID&Eacute;E'
+                        END
+                , '')
+    ) AS MOTSCLESSS,
+    i.HEURE,
+    m.IDDEPARTEMENT,
+    m.IDDEPARTEMENTLIB,
+    i.REMARQUE
+FROM INVENTAIRE i
+         LEFT JOIN MAGASINPOINT m ON m.ID = i.IDMAGASIN
+         LEFT JOIN CATEGORIEINGREDIENT c ON c.id = i.idcategorie;
+
+CREATE OR REPLACE VIEW INVENTAIRELIB_ANNULEE AS 
+  SELECT 
+i.ID,i.DATY,i.DESIGNATION,i.IDMAGASIN,i.IDMAGASINLIB,i.ETAT,i.ETATLIB,i.HEURE, i.IDDEPARTEMENT, i.IDDEPARTEMENTLIB, i.REMARQUE
+FROM INVENTAIRELIB i 
+WHERE i.ETAT = 0;
+
+CREATE OR REPLACE VIEW INVENTAIRELIB_CREE AS 
+  SELECT 
+i.ID,i.DATY,i.DESIGNATION,i.IDMAGASIN,i.IDMAGASINLIB,i.ETAT,i.ETATLIB,i.MOTSCLESSS,i.HEURE, i.IDDEPARTEMENT, i.IDDEPARTEMENTLIB, i.REMARQUE
+FROM INVENTAIRELIB i 
+WHERE i.ETAT = 1;
+
+CREATE OR REPLACE VIEW INVENTAIRELIB_VALIDEE AS 
+  SELECT 
+i.ID,i.DATY,i.DESIGNATION,i.IDMAGASIN,i.IDMAGASINLIB,i.ETAT,i.ETATLIB,i.MOTSCLESSS,i.HEURE, i.IDDEPARTEMENT, i.IDDEPARTEMENTLIB, i.REMARQUE
+FROM INVENTAIRELIB i 
+WHERE i.ETAT = 11;

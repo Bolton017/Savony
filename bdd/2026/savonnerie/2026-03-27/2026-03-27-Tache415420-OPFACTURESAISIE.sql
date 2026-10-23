@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW OPFACTURESAISIE AS
+SELECT
+    o.*,
+    '' AS idCaisse,
+    '' AS designation
+FROM OPFACTURE o;

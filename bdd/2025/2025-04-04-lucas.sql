@@ -1,0 +1,162 @@
+-- ASYNC.FABRICATION_OF source
+
+alter table MvtStock add idpoint varchar(255) constraint FK_POINT references POINT;
+ALTER TABLE MVTSTOCK ADD  idobjet varchar2(100);
+ALTER TABLE MVTSTOCKFILLE DROP COLUMN idingredient;
+ALTER TABLE MVTSTOCKFILLE DROP CONSTRAINT MVTSTOCKFILLE_PRODUIT_FK;
+ALTER TABLE INVENTAIREFILLE DROP CONSTRAINT INVENTAIREFILLE_PRODUIT_FK;
+ALTER TABLE TRANSFERTSTOCKDETAILS  DROP CONSTRAINT TRANSFERTSTOCK_PRODUIT_FK;
+
+CREATE OR REPLACE  VIEW FABRICATION_OF (ID, IDMERE, IDINGREDIENTS, LIBELLE, REMARQUE, DATYBESOIN, QTE, IDUNITE, IDOF) AS 
+  (
+SELECT
+	f.id,
+	f.idMere,
+	f.idingredients,
+	f.libelle,
+	f.remarque,
+	f.datybesoin,
+	f.qte,
+	f.idunite,
+	f2.IDOF
+FROM
+	FABRICATIONFILLE f
+JOIN FABRICATION f2 ON
+	f.IDMERE = f2.ID
+);
+
+
+
+CREATE OR REPLACE  VIEW INVENTAIRE_FILLE_CPL_ING (ID, IDINVENTAIRE, IDPRODUIT, IDPRODUITLIB, EXPLICATION, QUANTITETHEORIQUE, QUANTITE, DATY, IDMAGASIN, IDJAUGE, ETAT) AS 
+  SELECT
+i.ID ,
+i.IDINVENTAIRE ,
+i.IDPRODUIT ,
+p.LIBELLE AS IDPRODUITLIB,
+i.EXPLICATION ,
+i.QUANTITETHEORIQUE ,
+i.QUANTITE ,
+i2.DATY ,
+i2.IDMAGASIN ,
+i.idJauge,
+i2.ETAT
+FROM INVENTAIREFILLE i
+LEFT JOIN AS_INGREDIENTS p ON p.ID  = i.IDPRODUIT
+LEFT JOIN INVENTAIRE i2 ON i2.ID  = i.IDINVENTAIRE;
+
+-- ASYNC.V_ETATSTOCK_ING source
+
+CREATE OR REPLACE  VIEW V_ETATSTOCK_ING (ID, IDPRODUITLIB, IDTYPEPRODUIT, IDTYPEPRODUITLIB, IDMAGASIN, IDMAGASINLIB, DATEDERNIERINVENTAIRE, QUANTITE, ENTREE, SORTIE, RESTE, IDUNITE, IDUNITELIB, PUVENTE, IDPOINT, IDTYPEMAGASIN, SEUILMIN, SEUILMAX) AS 
+  SELECT inv.IDPRODUIT AS                                               ID,
+       p.LIBELLE       AS                                               idproduitLib,
+       p.CATEGORIEINGREDIENT,
+       tp.desce      AS                                               idtypeproduitlib,
+       inv.idmagasin,
+       mag.desce     AS                                               idmagasinlib,
+       inv.DATY                                                       dateDernierinventaire,
+       CAST(NVL(inv.QUANTITE, 0)  AS NUMBER(30, 2))                                          QUANTITE,
+       NVL(mvt.ENTREE, 0)                                             ENTREE,
+       NVL(mvt.SORTIE, 0)                                             SORTIE,
+       NVL(mvt.ENTREE, 0) + NVL(inv.QUANTITE, 0) - NVL(mvt.SORTIE, 0) reste,
+       p.UNITE,
+       u.desce       AS                                               idunitelib,
+       CAST(NVL(p.PV, 0) AS NUMBER(30, 2))                       PUVENTE,
+       mag.IDPOINT,
+       mag.IDTYPEMAGASIN,
+       p.seuilmin,
+       p.seuilmax
+FROM INVENTAIRE_FILLE_CPL_ING inv,
+     (
+         SELECT inv.IDPRODUIT,
+                inv.IDMAGASIN,
+                MAX(inv.DATY) maxDateInventaire
+         FROM INVENTAIRE_FILLE_CPL_ING inv
+         WHERE inv.ETAT = 11
+           AND inv.DATY <= SYSDATE --- dateMin
+         GROUP BY inv.IDPRODUIT, inv.IDMAGASIN
+     ) invm,
+     (
+         SELECT m.IDPRODUIT,
+                dinv.IDMAGASIN,
+                SUM(nvl(m.ENTREE, 0)) ENTREE,
+                SUM(nvl(m.SORTIE, 0)) SORTIE
+         FROM MVTSTOCKFILLELIB_VISE m,
+              (
+                  SELECT inv.IDPRODUIT,
+                         inv.IDMAGASIN,
+                         MAX(inv.DATY) maxDateInventaire
+                  FROM INVENTAIRE_FILLE_CPL inv
+                  WHERE inv.ETAT = 11
+                    AND inv.DATY <= SYSDATE --- dateMin
+                  GROUP BY inv.IDPRODUIT, inv.IDMAGASIN
+              ) dinv
+         WHERE m.IDPRODUIT = dinv.IDPRODUIT(+)
+           AND m.IDMAGASIN = dinv.IDMAGASIN(+)
+           AND m.DATY > dinv.maxDateInventaire
+           AND m.DATY <= SYSDATE -- dateMax
+         GROUP BY m.IDPRODUIT, dinv.IDMAGASIN
+     ) mvt,
+     AS_INGREDIENTS p,
+     CATEGORIEINGREDIENT tp,
+     magasin mag,
+     as_unite u
+WHERE inv.DATY = invm.maxDateInventaire
+  AND inv.IDMAGASIN = invm.IDMAGASIN
+  AND inv.IDPRODUIT = invm.IDPRODUIT
+  AND inv.IDPRODUIT = mvt.IDPRODUIT(+)
+  AND inv.IDMAGASIN = mvt.IDMAGASIN(+)
+  AND inv.IDPRODUIT = p.ID(+)
+  AND p.CATEGORIEINGREDIENT = tp.ID
+  AND inv.idmagasin = mag.ID
+  AND p.UNITE = u.ID(+)
+  AND ( mvt.SORTIE > 0 OR mvt.ENTREE > 0 )
+  AND inv.ETAT >= 11;
+
+CREATE OR REPLACE  VIEW MVTSTOCKFILLELIB (ID, IDMVTSTOCK, IDPRODUIT, IDPRODUITLIB, ENTREE, SORTIE, IDVENTEDETAIL, IDVENTEDETAILLIB, IDTRANSFERTDETAIL, IDTRANSFERTDETAILLIB, DATY, IDMAGASIN, IDMAGASINLIB) AS 
+  SELECT 
+	m.ID ,
+	m.IDMVTSTOCK ,
+	m.IDPRODUIT ,
+	p.libelle  AS IDPRODUITLIB,
+	m.ENTREE ,
+	m.SORTIE ,
+	m.IDVENTEDETAIL ,
+	'' AS IDVENTEDETAILLIB,
+	m.IDTRANSFERTDETAIL ,
+	'' AS IDTRANSFERTDETAILLIB,
+	m2.DATY ,
+	m2.IDMAGASIN ,
+	m3.VAL AS IDMAGASINLIB 
+	FROM MVTSTOCKFILLE m  
+	LEFT JOIN AS_INGREDIENTS  p ON p.ID = m.IDPRODUIT
+	LEFT JOIN MVTSTOCK m2 ON m2.ID = m.IDMVTSTOCK 
+	LEFT JOIN MAGASIN m3 ON m3.ID = m2.IDMAGASIN  ;
+
+
+	-- ASYNC.INVENTAIREFILLELIB source
+
+CREATE OR REPLACE  VIEW INVENTAIREFILLELIB (ID, IDINVENTAIRE, IDPRODUIT, IDPRODUITLIB, EXPLICATION, QUANTITETHEORIQUE, QUANTITE) AS 
+  SELECT 
+i.ID ,
+i.IDINVENTAIRE ,
+i.IDPRODUIT ,
+p.libelle AS IDPRODUITLIB,
+i.EXPLICATION ,
+i.QUANTITETHEORIQUE ,
+i.QUANTITE 
+FROM INVENTAIREFILLE i 
+LEFT JOIN AS_INGREDIENTS  p ON p.ID  = i.IDPRODUIT ;
+
+-- ASYNC.TRANSFERTSTOCKDETAILSCPL source
+
+CREATE OR REPLACE  VIEW TRANSFERTSTOCKDETAILSCPL (ID, IDTRANSFERTSTOCK, IDTRANSFERTSTOCKLIB, IDPRODUIT, IDPRODUITLIB, QUANTITE) AS 
+  SELECT 
+t.ID ,
+t.IDTRANSFERTSTOCK ,
+t2.DESIGNATION AS IDTRANSFERTSTOCKLIB,
+t.IDPRODUIT ,
+p.libelle AS IDPRODUITLIB,
+t.QUANTITE 
+FROM TRANSFERTSTOCKDETAILS t 
+LEFT JOIN TRANSFERTSTOCK t2 ON t2.ID = t.IDTRANSFERTSTOCK 
+LEFT JOIN AS_INGREDIENTS  p ON p.ID = t.IDPRODUIT ;

@@ -1,0 +1,1 @@
+alter table PROCESS add ecart number(30, 2);

@@ -1,0 +1,219 @@
+CREATE OR REPLACE  VIEW AS_BONDECOMMANDE_CPL (ID, PRODUIT, IDBC, QUANTITE, MONTANT, PU, TVA, UNITE, REMISE, DATY, ETAT, REMARQUE, MODEPAIEMENT, FOURNISSEUR, REFERENCE, PRODUITLIB, UNITELIB, MODEPAIEMENTLIB, FOURNISSEURLIB, REMISEMONTANT, MONTANTHT, MONTANTTVA, MONTANTTTC, IDDEVISE, MONTANTTTCAR, TAUXDECHANGE, DESIGNATION) AS 
+  select bcf.ID,bcf.PRODUIT,bcf.IDBC,bcf.QUANTITE,bcf.QUANTITE*bcf.PU AS montant,bcf.PU,bcf.TVA,bcf.UNITE,bcf.REMISE,
+       ab.DATY,
+       ab.ETAT,
+       ab.REMARQUE,
+--       ab.DESIGNATION,
+       ab.MODEPAIEMENT,
+       ab.FOURNISSEUR,
+       ab.REFERENCE,
+       p.LIBELLE  as produitlib,
+       u.VAL  as unitelib,
+       mp.VAL as MODEPAIEMENTLIB,
+       F.nom  AS FOURNISSEURLIB,
+       CAST(bcf.quantite * bcf.pu * ((bcf.remise/100)+(ab.REMISE/100)) AS NUMBER(30,2)) AS remiseMontant,
+       CAST(bcf.quantite * bcf.pu*(1-bcf.remise/100) AS NUMBER(30,2)) AS montantht,
+       CAST((bcf.quantite * bcf.pu - (bcf.quantite * bcf.pu * (bcf.remise/100))) * (bcf.tva/100)*(1-(ab.REMISE/100)) AS NUMBER(30,2)) AS montanttva,
+       CAST((bcf.quantite * bcf.pu - (bcf.quantite * bcf.pu * (bcf.remise/100)))*(1-(ab.REMISE/100))
+            + (bcf.quantite * bcf.pu - (bcf.quantite * bcf.pu * (bcf.remise/100))) * (bcf.tva/100)*(1-(ab.REMISE/100))
+           AS NUMBER(30,2)) AS montantttc,
+       bcf.iddevise,
+       CAST((
+           (bcf.quantite * bcf.pu - (bcf.quantite * bcf.pu * (bcf.remise/100)))
+               + (bcf.quantite * bcf.pu - (bcf.quantite * bcf.pu * (bcf.remise/100))) * (bcf.tva/100)
+           ) * bcf.TAUXDECHANGE*(1-(ab.REMISE/100))
+       AS NUMBER(30,2)) AS montantttcar,
+       bcf.TAUXDECHANGE,
+       bcf.designation
+from AS_BONDECOMMANDE_FILLE bcf
+         left outer join AS_BONDECOMMANDE AB on AB.ID = bcf.IDBC
+         left join AS_INGREDIENTS P on bcf.PRODUIT = P.ID
+         left join AS_UNITE u on bcf.UNITE = u.id
+         left join MODEPAIEMENT mp on AB.MODEPAIEMENT = mp.id
+         left join fournisseur F on AB.fournisseur = F.id
+
+ ;
+
+CREATE OR REPLACE  VIEW AS_BONDECOMMANDE_CPL_RECEPT (ID, IDBC, PRODUIT, PRODUITLIB, UNITELIB, FOURNISSEUR, FOURNISSEURLIB, QUANTITE, REMISE, MONTANTTVA, MONTANTTTC, MONTANTHT, IDDEVISE, QTELIVRER, QTEFACTURER, PU, MONTANTTTCAR, REMISEMONTANT,montant,DESIGNATION) AS 
+  SELECT
+    bc.id,
+    bc.idbc,
+    bc.produit,
+    bc.produitlib,
+    bc.unitelib,
+    bc.FOURNISSEUR,
+    bc.FOURNISSEURLIB,
+    CAST(nvl(bc.quantite,0) AS NUMBER(30,2))  AS quantite,
+    bc.REMISE,
+    bc.montanttva,
+    bc.montantttc,
+    bc.montantht,
+    bc.iddevise,
+    CAST(nvl(bl.qte,0) AS NUMBER(30,2)) AS qtelivrer,
+    --nvl(ff.qte + ffm.qte,0) AS qtefacturer
+    CAST(nvl(ffm.qte,0)  AS NUMBER(30,2)) AS qtefacturer,
+    CAST(nvl(bc.pu,0)  AS NUMBER(30,2)) AS pu,
+    CAST(nvl(montantttcar,0)  AS NUMBER(30,2)) AS montantttcar,
+    CAST(nvl(remiseMontant,0)  AS NUMBER(30,2)) AS remiseMontant,
+    CAST(nvl(montant,0)  AS NUMBER(30,2)) AS montant,
+    bc.designation
+FROM AS_BONDECOMMANDE_CPL bc
+         LEFT JOIN ff_fillebl_grp bl ON bc.id = bl.IDBC_FILLE
+         --LEFT JOIN ff_fillebc_grp ff ON bc.id = ff.IDBCDETAIL
+        left join FF_FILLEBC_GRP_MERE ffm on ffm.IDBC = bc.IDBC and ffm.IDPRODUIT = bc.PRODUIT;
+
+
+----- cast number 30,5 montant
+
+
+CREATE OR REPLACE  VIEW FACTUREFOURNISSEURCPL_TOUS (ID, IDFOURNISSEUR, IDFOURNISSEURLIB, IDMODEPAIEMENT, IDMODEPAIEMENTLIB, DATY, DESIGNATION, DATEECHEANCEPAIEMENT, ETATLIB, REFERENCE, IDBC, IDMAGASIN, IDMAGASINLIB, DEVISE, IDDEVISE, ETAT, TAUX, MONTANTTVA, MONTANTHT, TAUXDECHANGE, MONTANTTTC, MONTANTPAYE, MONTANTRESTE, MONTANTTTCAR, MONTANTPAYEAR, MONTANTRESTEAR, MOTSCLESSS) AS 
+  SELECT
+	fcpl.id,
+	fcpl.idfournisseur,
+	fcpl.idfournisseurlib,
+	fcpl.idmodepaiement,
+	fcpl.idmodepaiementlib,
+	fcpl.daty,
+	fcpl.designation,
+	fcpl.dateecheancepaiement,
+	fcpl.etatlib,
+	fcpl.reference,
+	fcpl.idbc,
+	fcpl.idmagasin,
+	fcpl.idmagasinlib,
+	fcpl.devise,
+	fcpl.iddevise,
+	fcpl.etat,
+	fcpl.taux,
+	cast(fcpl.montanttva as number(30,5)) AS montanttva ,
+	cast(fcpl.montantht as number(30,5)) AS montantht,
+	cast(fcpl.tauxdechange as number(30,2)) AS tauxdechange,
+	cast(fcpl.montantttc  as number(30,5))  AS  MONTANTTTC,
+	cast(nvl((fcpl.montantpaye * fcpl.TAUXDECHANGE),0) as number(30,5)) AS MONTANTPAYE,
+	cast(nvl((fcpl.montantreste * fcpl.TAUXDECHANGE),0) as number(30,5)) AS MONTANTRESTE,
+	cast(fcpl.MONTANTTTCAR  as number(30,5)) AS MONTANTTTCAR, cast(fcpl.MONTANTPAYEAR as number(30,5)) AS MONTANTPAYEAR,cast(fcpl.MONTANTRESTEAR as number(30,5)) AS MONTANTRESTEAR,
+	UPPER(
+        NVL(fcpl.designation, '') || ' ' ||
+        NVL(fcpl.reference, '') || ' ' ||
+        NVL(fcpl.idfournisseurlib, '') || ' ' ||
+        NVL(fcpl.idmodepaiementlib, '') || ' ' ||
+        NVL(fcpl.idmagasinlib, '') || ' ' ||
+        NVL(fcpl.devise, '') || ' ' ||
+        NVL(fcpl.idbc, '') || ' ' ||
+        TO_CHAR(fcpl.daty, 'DD/MM/YYYY') || ' ' ||
+        TO_CHAR(fcpl.dateecheancepaiement, 'DD/MM/YYYY') || ' ' ||
+        NVL(fcpl.etatlib, '')
+    ) AS MOTSCLESSS
+FROM FACTUREFOURNISSEURCPL fcpl
+
+
+ ;
+ 
+ 
+ CREATE OR REPLACE  VIEW FACTUREFOURNISSEURCPL_MGA (ID, IDFOURNISSEUR, IDFOURNISSEURLIB, IDMODEPAIEMENT, IDMODEPAIEMENTLIB, DATY, DESIGNATION, DATEECHEANCEPAIEMENT, ETAT, ETATLIB, REFERENCE, IDBC, IDMAGASIN, DEVISE, TAUX, IDMAGASINLIB, IDDEVISE, MONTANTTVA, MONTANTHT, MONTANTTTC, MONTANTTTCAR, MONTANTPAYE, MONTANTRESTE, TAUXDECHANGE, MONTANTPAYEAR, MONTANTRESTEAR) AS 
+  SELECT
+	ID,
+	IDFOURNISSEUR,
+	IDFOURNISSEURLIB,
+	IDMODEPAIEMENT,
+	IDMODEPAIEMENTLIB,
+	DATY,
+	DESIGNATION,
+	DATEECHEANCEPAIEMENT,
+	ETAT,
+	ETATLIB,
+	REFERENCE,
+	IDBC,
+	IDMAGASIN,
+	DEVISE,
+	TAUX,
+	IDMAGASINLIB,
+	IDDEVISE,
+	CAST(MONTANTTVA AS NUMBER(30, 5)) AS MONTANTTVA,
+	CAST(MONTANTHT AS NUMBER(30, 5)) AS MONTANTHT,
+	CAST(MONTANTTTC AS NUMBER(30, 5)) AS MONTANTTTC,
+	CAST(MONTANTTTCAR AS NUMBER(30, 5)) AS MONTANTTTCAR,
+	CAST(MONTANTPAYE AS NUMBER(30, 5)) AS MONTANTPAYE,
+	CAST(MONTANTRESTE AS NUMBER(30, 5)) AS MONTANTRESTE,
+	CAST(TAUXDECHANGE AS NUMBER(30, 2)) AS TAUXDECHANGE ,
+	CAST(MONTANTPAYEAR AS NUMBER(30, 5)) AS MONTANTPAYEAR,
+	CAST(MONTANTRESTEAR AS NUMBER(30, 5)) AS MONTANTRESTEAR
+FROM
+	FACTUREFOURNISSEURCPL_TOUS
+WHERE
+	idDEVISE = 'AR'
+
+ ;
+ 
+ 
+CREATE OR REPLACE  VIEW FACTUREFOURNISSEURCPL_EUR  AS 
+SELECT
+	ID,
+	IDFOURNISSEUR,
+	IDFOURNISSEURLIB,
+	IDMODEPAIEMENT,
+	IDMODEPAIEMENTLIB,
+	DATY,
+	DESIGNATION,
+	DATEECHEANCEPAIEMENT,
+	ETAT,
+	ETATLIB,
+	REFERENCE,
+	IDBC,
+	IDMAGASIN,
+	DEVISE,
+	TAUX,
+	IDMAGASINLIB,
+	IDDEVISE,
+	CAST(MONTANTTVA AS NUMBER(30, 5)) AS MONTANTTVA,
+	CAST(MONTANTHT AS NUMBER(30, 5)) AS MONTANTHT,
+	CAST(MONTANTTTC AS NUMBER(30, 5)) AS MONTANTTTC,
+	CAST(MONTANTTTCAR AS NUMBER(30, 5)) AS MONTANTTTCAR,
+	CAST(MONTANTPAYE AS NUMBER(30, 5)) AS MONTANTPAYE,
+	CAST(MONTANTRESTE AS NUMBER(30, 5)) AS MONTANTRESTE,
+	CAST(TAUXDECHANGE AS NUMBER(30, 2)) AS TAUXDECHANGE ,
+	CAST(MONTANTPAYEAR AS NUMBER(30, 5)) AS MONTANTPAYEAR,
+	CAST(MONTANTRESTEAR AS NUMBER(30, 5)) AS MONTANTRESTEAR
+FROM
+	FACTUREFOURNISSEURCPL_TOUS
+WHERE
+	idDEVISE = 'EUR'
+
+ ;
+ 
+ 
+ CREATE OR REPLACE  VIEW FACTUREFOURNISSEURCPL_USD AS 
+  SELECT
+	ID,
+	IDFOURNISSEUR,
+	IDFOURNISSEURLIB,
+	IDMODEPAIEMENT,
+	IDMODEPAIEMENTLIB,
+	DATY,
+	DESIGNATION,
+	DATEECHEANCEPAIEMENT,
+	ETAT,
+	ETATLIB,
+	REFERENCE,
+	IDBC,
+	IDMAGASIN,
+	DEVISE,
+	TAUX,
+	IDMAGASINLIB,
+	IDDEVISE,
+	CAST(MONTANTTVA AS NUMBER(30, 5)) AS MONTANTTVA,
+	CAST(MONTANTHT AS NUMBER(30, 5)) AS MONTANTHT,
+	CAST(MONTANTTTC AS NUMBER(30, 5)) AS MONTANTTTC,
+	CAST(MONTANTTTCAR AS NUMBER(30, 5)) AS MONTANTTTCAR,
+	CAST(MONTANTPAYE AS NUMBER(30, 5)) AS MONTANTPAYE,
+	CAST(MONTANTRESTE AS NUMBER(30, 5)) AS MONTANTRESTE,
+	CAST(TAUXDECHANGE AS NUMBER(30, 2)) AS TAUXDECHANGE ,
+	CAST(MONTANTPAYEAR AS NUMBER(30, 5)) AS MONTANTPAYEAR,
+	CAST(MONTANTRESTEAR AS NUMBER(30, 5)) AS MONTANTRESTEAR
+FROM
+	FACTUREFOURNISSEURCPL_TOUS
+WHERE
+	idDEVISE = 'USD'
+
+ ;
+ 

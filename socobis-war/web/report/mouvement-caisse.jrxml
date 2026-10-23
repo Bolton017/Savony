@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mouvement-caisse" pageWidth="280" pageHeight="842" columnWidth="240" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="55b0cd7a-5f3e-477a-b8b0-60be85946772">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.String"/>
+	<parameter name="tiers" class="java.lang.String"/>
+	<parameter name="daty" class="java.util.Date"/>
+	<parameter name="montant" class="java.lang.Double"/>
+	<parameter name="ref" class="java.lang.String"/>
+	<parameter name="num" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="156" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="70" width="47" height="20" uuid="eb882ccd-5280-408b-9c97-e8f9909491bc"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tiers ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="90" width="47" height="20" uuid="e34d11e4-6aa7-4297-a61f-8e53a8e35cd9"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="110" width="47" height="20" uuid="56218f30-f805-473f-951a-bda880b53932"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Montant]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="130" width="47" height="20" uuid="9731edf7-c994-4701-818b-c720b3c61b93"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Référence ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="70" width="10" height="20" uuid="c2f24be1-2d1e-41c4-aa3d-8619be9ca7ff"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="90" width="10" height="20" uuid="319113fd-b50c-4873-aced-3ccf11989582"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="110" width="10" height="20" uuid="19ecceb3-a4a5-407f-987d-37ff397fc987"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="130" width="10" height="20" uuid="1455589b-dd98-4c42-83a7-42f9267519b6"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="57" y="70" width="183" height="20" uuid="8f28cbca-25ef-477d-9d3d-1508c2f726ab"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tiers}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="57" y="90" width="183" height="20" uuid="3431e851-bf5c-4328-9140-51f980702ac7"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="57" y="110" width="183" height="20" uuid="2880159c-3856-4e68-a4dc-a4023ca50467"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{montant}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="57" y="130" width="183" height="20" uuid="31470173-8be6-45a7-af80-d25f75debf74"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ref}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="46" width="240" height="20" uuid="01dad8d0-74e2-438e-bad7-f29ab206c1f0"/>
+				<textElement textAlignment="Center">
+					<font size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["MOUVEMENT DE CAISSE N° "+$P{num}]]></textFieldExpression>
+			</textField>
+			<image scaleImage="FillFrame">
+				<reportElement x="-8" y="0" width="91" height="45" uuid="c2323b9d-29cc-4895-9314-50ce62426a9e"/>
+				<imageExpression><![CDATA["logo.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+</jasperReport>

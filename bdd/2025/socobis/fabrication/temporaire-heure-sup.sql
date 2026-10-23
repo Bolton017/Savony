@@ -1,0 +1,8 @@
+CREATE TABLE heuresuptemporaire(
+   id varchar2(50) NOT NULL,
+   val varchar2(100),
+   desce varchar2(100)
+);
+
+INSERT INTO HEURESUPTEMPORAIRE (ID, VAL, DESCE) VALUES('HSTMP0001', '0', 'Non');
+INSERT INTO HEURESUPTEMPORAIRE (ID, VAL, DESCE) VALUES('HSTMP0002', '1', 'Oui');

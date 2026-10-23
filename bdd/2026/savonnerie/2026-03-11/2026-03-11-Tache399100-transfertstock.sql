@@ -1,0 +1,94 @@
+ALTER TABLE TRANSFERTSTOCK ADD IDDEMANDE varchar(50);
+
+CREATE OR REPLACE  VIEW TRANSFERTSTOCKCPL AS
+SELECT
+    t.ID ,
+    t.DESIGNATION ,
+    t.IDMAGASINDEPART ,
+    m.VAL AS IDMAGASINDEPARTLIB,
+    t.IDMAGASINARRIVE ,
+    m2.VAL AS IDMAGASINARRIVELIB,
+    t.DATY ,
+    t.ETAT ,
+    t.idof,
+    CASE
+        WHEN t.ETAT = 0
+            THEN 'ANNULÉE'
+        WHEN t.ETAT = 1
+            THEN 'CRÉÉE'
+        WHEN t.ETAT = 11
+            THEN 'VISÉE'
+        END AS ETATLIB,
+    t.iddemande
+FROM TRANSFERTSTOCK t
+         LEFT JOIN MAGASINPOINT m ON m.ID = t.IDMAGASINDEPART
+         LEFT JOIN MAGASINPOINT m2 ON m2.ID = t.IDMAGASINARRIVE;
+
+CREATE OR REPLACE  VIEW MVTSTOCKTRANSFERT AS
+SELECT
+    m.ID ,
+    m.IDMVTSTOCK ,
+    p.libelle  AS IDPRODUITLIB,
+    m.ENTREE ,
+    m.SORTIE ,
+    m2.DATY ,
+    m3.VAL AS IDMAGASINLIB,
+    m2.designation AS designation,
+    ts.iddemande
+FROM MVTSTOCKFILLE m
+         LEFT JOIN AS_INGREDIENTS  p ON p.ID = m.IDPRODUIT
+         LEFT JOIN MVTSTOCK m2 ON m2.ID = m.IDMVTSTOCK
+         LEFT JOIN MAGASIN2 m3 ON m3.ID = m2.IDMAGASIN
+         LEFT JOIN LOT l on l.ID = m.IDLOT
+         LEFT JOIN TRANSFERTSTOCKCPL ts ON m2.idtransfert = ts.id;
+
+CREATE OR REPLACE VIEW mvtstocktransfert as
+SELECT
+    m.ID ,
+    m.IDMVTSTOCK ,
+    p.libelle  AS IDPRODUITLIB,
+    m.ENTREE ,
+    m.SORTIE ,
+    m2.DATY ,
+    m3.VAL AS IDMAGASINLIB,
+    m2.designation AS designation
+FROM MVTSTOCKFILLE m
+         LEFT JOIN AS_INGREDIENTS  p ON p.ID = m.IDPRODUIT
+         LEFT JOIN MVTSTOCK m2 ON m2.ID = m.IDMVTSTOCK
+         LEFT JOIN MAGASIN2 m3 ON m3.ID = m2.IDMAGASIN
+         LEFT JOIN LOT l on l.ID = m.IDLOT;
+
+CREATE OR REPLACE VIEW SITUATIONDEMANDETRANSFERT AS
+SELECT
+    t2.id,
+    t.IDPRODUIT,
+    p.libelle AS PRODUIT,
+    t.QUANTITE AS QTEDEMANDE,
+    NVL(SUM(
+                CASE
+                    WHEN ms.ETAT = 11 THEN msf.SORTIE
+                    ELSE 0
+                    END
+        ),0) AS QTELIVRE,
+
+    NVL(SUM(
+                CASE
+                    WHEN ms.ETAT = 11 THEN msf.ENTREE
+                    ELSE 0
+                    END
+        ),0) AS QTERECU
+FROM DEMANDETRANSFERTFILLE t
+         LEFT JOIN DEMANDETRANSFERT t2 ON t2.ID = t.IDDEMANDETRANSFERT
+         LEFT JOIN AS_INGREDIENTS p ON p.ID = t.IDPRODUIT
+         LEFT JOIN TRANSFERTSTOCK ts ON ts.IDDEMANDE = t2.ID
+         LEFT JOIN TRANSFERTSTOCKDETAILS tsd ON tsd.IDTRANSFERTSTOCK = ts.ID AND tsd.IDPRODUIT = t.IDPRODUIT
+         LEFT JOIN MVTSTOCK ms ON ms.IDTRANSFERT = ts.ID
+         LEFT JOIN MVTSTOCKFILLE msf ON msf.IDMVTSTOCK = ms.ID AND msf.IDPRODUIT = t.IDPRODUIT
+GROUP BY t2.id,t.IDPRODUIT,p.libelle,t.QUANTITE;
+
+INSERT INTO MENUDYNAMIQUE
+(ID, LIBELLE, ICONE, HREF, RANG, NIVEAU, ID_PERE)
+VALUES('MENUDYN0030400300203', 'Approvisionnement', 'assignment', 'module.jsp?but=stock/transfertstock/transfertstock-liste-non-vise.jsp', 4, 2, 'ELM00317777001');
+
+CREATE OR REPLACE VIEW TRANSFERTSTOCKCPLNONVISE AS
+SELECT*FROM TRANSFERTSTOCKCPL t WHERE t.etat=1;

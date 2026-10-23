@@ -1,0 +1,3 @@
+INSERT INTO menudynamique (id, libelle, icone, href, rang, niveau, id_pere) VALUES ('MENDYN1765482208757832', 'Liste des absences', 'list_alt', 'module.jsp?but=paie/demande/demande-absence-liste.jsp', 2, 3, 'MENDYN1765481923948780');
+INSERT INTO menudynamique (id, libelle, icone, href, rang, niveau, id_pere) VALUES ('MENDYN1765482234345949', 'Nouvelle absence', 'sticky_note_2', 'module.jsp?but=paie/demande/mademande.jsp', 3, 3, 'MENDYN1765481923948780');
+INSERT INTO menudynamique (id, libelle, icone, href, rang, niveau, id_pere) VALUES ('MENDYN176548226245570', 'Saisie', 'add', 'module.jsp?but=paie/demande/demande-absence-saisie.jsp', 4, 3, 'MENDYN1765481923948780');

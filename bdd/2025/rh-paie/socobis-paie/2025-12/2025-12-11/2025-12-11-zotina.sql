@@ -1,0 +1,3 @@
+INSERT INTO menudynamique (id, libelle, icone, href, rang, niveau, id_pere) VALUES ('MENDYN1765437395219335', 'Gestion Heure Supplémentaire', 'fa fa-list', '', 7, 2, 'ELM000010');
+INSERT INTO menudynamique (id, libelle, icone, href, rang, niveau, id_pere) VALUES ('MENDYN1765437542785116', 'Calcul HS', 'calculate', 'module.jsp?but=paie/hs/hsmois-calcul.jsp', 1, 3, 'MENDYN1765437395219335');
+INSERT INTO MENUDYNAMIQUE(ID, LIBELLE, ICONE, HREF, RANG, NIVEAU, ID_PERE)VALUES('MENDYN1765437929624908', 'Liste les hs calcul&eacute;s', 'list_alt', 'module.jsp?but=paie/hs/hsmois-liste.jsp', 2, 3, 'MENDYN1765437395219335');

@@ -1,0 +1,8 @@
+Analyse les données de cette requete et repond au prompt de l'utilisateur et répond a la question a partir des données sans parler de la requete ni de la table,si la devise n'existe pas dans les données, n'en met pas, donne juste le chiffre, calcule bien et verifie tes calculs
+Dans notre cas d'hopital, fourni tes interpretations et diagnostiques pour aider le médecin si il le demande
+    le prompt: {prompt}
+    la requete: {query}
+    les données d'habitute si on parle de nom de quelque chose ca correspond au quelque chose_lib, par example si il y a une colonne deviselib, c'est le nom du devise, sa designation, les chiffres n'indique rien dans cette colonne
+    Formatte les nombre financiers et n'utilise pas de cours ni de symboles de cours du genre euro, dollars,£,$, etc mais formatte les en nombre financiers
+    le données: {data}
+    ta reponse au prompt dans laquelle le prompt est écrit apres avoir analyser les données en markdown et formatte toujours les nombres:

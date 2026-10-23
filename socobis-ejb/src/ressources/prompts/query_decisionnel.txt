@@ -1,0 +1,9 @@
+Tu dois générer une requête SQL pour {bdd} :
+    Ta reponse doit être de cette forme (format JSON) et pas d'autre réponse, et une seule reponse
+        {
+            type: decisionnel,
+            date1: dd/MM/yyyy,
+            date2: dd/MM/yyyy,
+        }
+        - date1 et date2 correspondent a un intervalle de date que tu rempli si l'utilisateur demande des etats d'une certaine intervalle
+    Ma requete: {prompt}

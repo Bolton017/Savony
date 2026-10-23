@@ -1,0 +1,1 @@
+INSERT INTO SAVONNERIE0126.MENUDYNAMIQUE (ID, LIBELLE, ICONE, HREF, RANG, NIVEAU, ID_PERE) VALUES ('MNDNST0002706171', 'État de stock par lot ', 'list_alt', 'module.jsp?but=stock/etatstock/etatstocklot-liste.jsp', 2, 3, 'MNDN000000017');

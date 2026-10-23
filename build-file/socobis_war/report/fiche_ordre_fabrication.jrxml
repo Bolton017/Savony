@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="fiche_ordre_fabrication" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="02c3f79b-31e5-4232-82c8-486bf6a5f4b7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="daty" class="java.util.Date"/>
+	<parameter name="id" class="java.lang.String"/>
+	<field name="designation" class="java.lang.String"/>
+	<field name="pu" class="java.lang.Double"/>
+	<field name="puth" class="java.lang.Double"/>
+	<field name="qteth" class="java.lang.Double"/>
+	<field name="montth" class="java.lang.Double"/>
+	<field name="categorieIngredient" class="java.lang.String"/>
+	<field name="categorieIngredientLib" class="java.lang.String"/>
+	<variable name="montanttotal" class="java.lang.Double" resetType="Group" resetGroup="categorie_group" calculation="Sum">
+		<variableExpression><![CDATA[$F{montth}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<group name="categorie_group" keepTogether="true">
+		<groupExpression><![CDATA[$F{categorieIngredientLib}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField isBlankWhenNull="true">
+					<reportElement x="0" y="0" width="254" height="20" uuid="bbb95d4a-25b7-4728-aae7-3b4f356edb84"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+						<paragraph leftIndent="5"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{categorieIngredientLib}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="20">
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement x="434" y="0" width="121" height="20" uuid="afbbedf3-6e63-4073-bf05-2ebb04eb664c"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+						<paragraph rightIndent="5"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{montanttotal}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="56" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="114" height="56" uuid="d2f6290f-1db2-43b4-bd39-80334dae2b27"/>
+				<imageExpression><![CDATA["logo_sisal.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="44" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="5" y="10" width="114" height="20" uuid="b2ef5df7-a999-43cd-895c-43cdced132b5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="377" y="10" width="28" height="20" uuid="d8a8043b-af98-402f-827d-21b600090c03"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[OF : ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="405" y="10" width="150" height="20" uuid="f667975e-d484-4fba-ba34-a5bfee6f3bbd"/>
+				<textFieldExpression><![CDATA[$P{id}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="254" y="0" width="60" height="20" uuid="7d0b1ea0-4f88-42e0-8f90-256dbd4979a0"/>
+				<box>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[QUANTITÉ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="314" y="0" width="120" height="20" uuid="6c9d31ab-b70b-4340-848d-c57c08d35269"/>
+				<box>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[P.U]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="434" y="0" width="121" height="20" uuid="ab573ce4-a3d1-464d-919a-9267d5ad8e79"/>
+				<box>
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MONTANT]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="254" height="20" uuid="a0acda08-f535-43e9-9025-5f4d365b9539"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isStrikeThrough="false"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{designation}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="314" y="0" width="120" height="20" uuid="36a1ba92-0537-4d90-a5a8-386e5aaf5c26"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isStrikeThrough="false"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{puth}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="254" y="0" width="60" height="20" uuid="7ecf58df-2637-4b45-9259-2ec112dab9f1"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isStrikeThrough="false"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{qteth}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="434" y="0" width="121" height="20" uuid="11a32d59-0726-4669-b32e-512bbfbfe0c9"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isStrikeThrough="false"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montth}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

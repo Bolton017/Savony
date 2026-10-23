@@ -1,0 +1,15 @@
+UPDATE menudynamique SET icone = 'settings', href = '' WHERE id = 'MD00000003004';
+UPDATE menudynamique SET icone = 'badge' WHERE id = 'MD00000003001';
+UPDATE menudynamique SET icone = 'account_balance' WHERE id = 'MD00000003001V';
+UPDATE menudynamique SET icone = 'family_restroom' WHERE id = 'MC0000001';
+UPDATE menudynamique SET icone = 'work', href = '' WHERE id = 'MD00000003002';
+UPDATE menudynamique SET icone = 'add_box' WHERE id = 'MD000000030012';
+UPDATE menudynamique SET icone = 'list_alt' WHERE id = 'MD000000030013';
+UPDATE menudynamique SET icone = 'paid' WHERE id = 'MD00000003003';
+UPDATE menudynamique SET icone = 'add' WHERE id = 'MD00000003007';
+UPDATE menudynamique SET icone = 'view_list' WHERE id = 'MD00000003008';
+UPDATE menudynamique SET icone = 'currency_exchange' WHERE id = 'MD00000993003';
+UPDATE menudynamique SET icone = 'calculate', href = '' WHERE id = 'MD00000003009';
+UPDATE menudynamique SET icone = 'add' WHERE id = 'MD000000030010';
+UPDATE menudynamique SET icone = 'rate_review' WHERE id = 'MD0000000300112';
+UPDATE menudynamique SET icone = 'approval' WHERE id = 'MD000000030011';

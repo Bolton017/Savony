@@ -1,0 +1,12 @@
+Tu dois determiner quelle table l'utilisateur veut lister et sur quelle intervalle de date :
+    les tables disponible: {tables}
+    date1 et date2 sont les intervalle si il y a une intervalle de date sinon met la date d'aujourd'hui. Une semaine commence par Lundi et se termine par Dimanche
+    Ta reponse doit être de cette forme (format JSON) et pas d'autre réponse, et une seule reponse
+    {
+        type: lister,
+        nomTable: Nom de la table correcte,
+        date1: dd/MM/yyyy,
+        date2: dd/MM/yyyy,
+    }
+    La colonne donnees correspond un tableau de JSON par rapport au prompt,met exactement ce que le client a saisie, tu met pas si il y a pas. Met en camelCase les cles:
+    Ma question: {prompt}

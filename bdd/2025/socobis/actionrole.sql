@@ -1,0 +1,38 @@
+CREATE TABLE "ACTIONROLE"
+(
+    "ID" VARCHAR2(50) NOT NULL ENABLE,
+    "NOMTABLEOBJET" VARCHAR2(50),
+    "ACTION" VARCHAR2(50),
+    "ROLEMINIMUM" NUMBER(30,0),
+    "DIRECTION" VARCHAR2(50),
+    CONSTRAINT "PK_ACTIONROLES" PRIMARY KEY ("ID")
+)
+CREATE OR REPLACE VIEW "UTILISATEURVUE"  AS
+SELECT
+    u.refuser,
+    u.LOGINUSER,
+    u.PWDUSER,
+    u.NOMUSER,
+    d.LIBELLEDIR AS adruser,
+    u.TELUSER,
+    u.IDROLE,
+    r.RANG
+FROM utilisateur u
+         LEFT JOIN direction d ON u.ADRUSER = d.IDDIR
+         LEFT JOIN roles r ON r.IDROLE = u.IDROLE;
+
+--creer sequences :
+CREATE SEQUENCE seq_actionrole
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE
+NOCYCLE;
+
+CREATE OR REPLACE FUNCTION getSeqactionrole
+ RETURN NUMBER
+IS
+  retour NUMBER;
+BEGIN
+SELECT seq_actionrole.NEXTVAL into retour from dual;
+RETURN retour;
+END;

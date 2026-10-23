@@ -1,0 +1,11 @@
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM668B8EE2', 'MNDN0002706171', NULL, 'cheffab', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM04DE6FA1', 'MNDN0002706171', NULL, 'dg', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UME510DAAA', 'MNDN0002706171', NULL, 'cg', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UMFEB18FE2', 'MNDN0002706171', NULL, 'magtransiteblg', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UMB66FEDC8', 'MNDN0002706171', NULL, 'chef_dep', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UMFF1C5BE2', 'MNDN0002706171', NULL, 'magcentral', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UMFA43B44C', 'MNDN0002706171', NULL, 'achapprov', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UMB17E6C86', 'MNDN0002706171', NULL, 'magtransitmp', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM5451F90B', 'MNDN0002706171', NULL, 'dirvente', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM0A842880', 'MNDN0002706171', NULL, 'ctrmaitre', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM81CA5C29', 'MNDN0002706171', NULL, 'maintenance', 1);

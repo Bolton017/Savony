@@ -1,0 +1,10 @@
+UPDATE menudynamique SET libelle = 'Édition de la paie' WHERE id = 'MENDYN001';
+UPDATE menudynamique SET libelle = 'État IRSA' WHERE id = 'MD000000040032Z_02';
+UPDATE menudynamique SET libelle = 'État OSTIE' WHERE id = 'MD000000040032Z_03';
+UPDATE menudynamique SET libelle = 'État CNaPS' WHERE id = 'MD000000040032Z_04';
+UPDATE menudynamique SET libelle = 'Graphique des salaires' WHERE id = 'MENDYN00120';
+UPDATE menudynamique SET libelle = 'Solde des congés-Droits' WHERE id = 'MD000000001_2';
+UPDATE menudynamique SET libelle = 'Gestion des pointages', href = '' WHERE id = 'JUIN002';
+UPDATE menudynamique SET libelle = 'Indemnités diverses' WHERE id = 'MD00021110005';
+UPDATE menudynamique SET libelle = 'Gestion des heures supplémentaires', href = '' WHERE id = 'MENDYN1765437395219335';
+UPDATE menudynamique SET libelle = 'Liste des HS calculées' WHERE id = 'MENDYN1765437929624908';

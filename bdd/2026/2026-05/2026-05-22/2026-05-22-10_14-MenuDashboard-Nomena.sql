@@ -1,0 +1,1 @@
+INSERT INTO menudynamique (id, libelle, icone, href, rang, niveau, id_pere) VALUES ('MENDYN1779433992901987', 'Tableau de bord', 'dashboard', 'module.jsp?but=dashboard-stock.jsp', 7, 2, 'MNDN000000003');

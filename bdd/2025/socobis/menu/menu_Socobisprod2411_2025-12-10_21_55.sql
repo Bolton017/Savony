@@ -1,0 +1,11 @@
+UPDATE menudynamique SET icone = 'factory', href = '' WHERE id = 'MENUDYN00304001';
+UPDATE menudynamique SET icone = 'speed' WHERE id = 'MENUDYN01908001';
+UPDATE menudynamique SET icone = 'dashboard' WHERE id = 'MENUDYN02108001';
+UPDATE menudynamique SET icone = 'precision_manufacturing' WHERE id = 'MENUDYN00304002';
+UPDATE menudynamique SET icone = 'draft' WHERE id = 'MNDNAN001';
+UPDATE menudynamique SET icone = 'list_alt' WHERE id = 'MNDN00050500002L';
+UPDATE menudynamique SET libelle = 'Editer Ristourne', icone = 'percent' WHERE id = 'MNDN00050500002';
+UPDATE menudynamique SET icone = 'receipt_long' WHERE id = 'MNDN0001109001';
+UPDATE menudynamique SET icone = 'pending_actions' WHERE id = 'MDO0000056';
+UPDATE menudynamique SET icone = 'payments' WHERE id = 'MENDYN1758529047722337';
+UPDATE menudynamique SET icone = 'calendar_month' WHERE id = 'ELM01';

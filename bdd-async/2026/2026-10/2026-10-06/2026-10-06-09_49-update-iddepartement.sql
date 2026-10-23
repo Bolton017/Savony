@@ -1,0 +1,3 @@
+-- update magasin2 set iddepartement='SERV0007' where iddepartement in ('SERV0009',
+-- 'SERV00022',
+-- 'SERV00023');

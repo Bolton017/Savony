@@ -1,0 +1,9 @@
+DELETE FROM usermenu WHERE id = 'UMA38960B0'; -- 1 rows
+DELETE FROM usermenu WHERE id = 'UM7300DC96'; -- 1 rows
+DELETE FROM usermenu WHERE id = 'UM811F0D47'; -- 1 rows
+DELETE FROM usermenu WHERE id = 'UMC5A6AA1B'; -- 1 rows
+DELETE FROM usermenu WHERE id = 'UMB425A215'; -- 1 rows
+DELETE FROM usermenu WHERE id = 'UMDB8EE07F'; -- 1 rows
+DELETE FROM usermenu WHERE id = 'UM01941FB5'; -- 1 rows
+DELETE FROM usermenu WHERE id = 'UMB7800174'; -- 1 rows
+DELETE FROM usermenu WHERE id = 'UM36EBF3CE'; -- 1 rows

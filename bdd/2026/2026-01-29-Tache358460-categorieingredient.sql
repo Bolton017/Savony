@@ -1,0 +1,1 @@
+INSERT INTO categorieingredient (id, val, desce) VALUES('CAT010', 'Carte', 'Carte');

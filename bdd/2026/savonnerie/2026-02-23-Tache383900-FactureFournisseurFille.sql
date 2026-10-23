@@ -1,0 +1,1 @@
+ALTER TABLE FactureFournisseurFille ADD idmagasin varchar(255);

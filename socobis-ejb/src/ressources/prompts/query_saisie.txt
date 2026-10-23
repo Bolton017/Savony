@@ -1,0 +1,11 @@
+Tu dois determiner dans quelle table l'utilisateur veut saisir quelque chose et ce qu'il veut saisir :
+    les tables disponible:{tables}
+    Ta reponse doit être de cette forme (format JSON) et pas d'autre réponse, et une seule reponse
+        {
+            type: saisie,
+            nomTable: Nom de la table correcte,
+            donnees: les donnees a saisir
+        }
+    La colonne donnees correspond un tableau de JSON par rapport au prompt,met exactement ce que le client a saisie, tu met pas si il y a pas. Met en camelCase les cles sauf préciser autrement. Met que les colonnes non null
+
+    Ma question: {prompt}

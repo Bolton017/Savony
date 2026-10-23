@@ -1,0 +1,38 @@
+CREATE OR REPLACE VIEW FFAVECPERTE_FF AS
+SELECT
+    ff.ID,
+    ff.IDFACTUREFOURNISSEUR,
+    ff.IDPRODUIT,
+    ff.QTE,
+    ff.PU,
+    ff.REMISES,
+    ff.IDBCDETAIL,
+    ff.TVA,
+    ff.DEVISE,
+    ff.TAUXDECHANGE,
+    ff.IDDEVISE,
+    ff.DESIGNATION,
+    ff.COMPTE,
+    CAST( nvl((CASE WHEN fg.MONTANTPERTEGAIN =0 THEN NULL ELSE  ff.MONTANTPERTEGAIN end),(p.montant*qte*TAUXDECHANGE*ff.pu/fg.montanttotal)) AS NUMBER(30,2) ) AS MONTANTPERTEGAIN ,
+    ff.IDFOURNISSEUR,
+    ff.ETAT,ff.DATY,
+    CAST( (qte*ff.pu*TAUXDECHANGE+nvl((CASE WHEN fg.MONTANTPERTEGAIN =0 THEN NULL ELSE  ff.MONTANTPERTEGAIN end),0))/qte AS NUMBER(30,2) ) AS pupertegain ,
+    CAST( (qte*ff.pu*TAUXDECHANGE+nvl((CASE WHEN fg.MONTANTPERTEGAIN =0 THEN NULL ELSE  ff.MONTANTPERTEGAIN end),0)) AS NUMBER(30,2) ) AS montantavecpertegain,
+    asi.LIBELLE AS LIBELLEPRODUIT
+FROM
+    FACTUREFOURNISSEUR_mf ff
+        left JOIN perte_grporigine_fact p ON p.idorigine=ff.idfacturefournisseur
+        LEFT JOIN ff_grpmere fg ON fg.idfacturefournisseur=ff.idfacturefournisseur
+        LEFT JOIN AS_INGREDIENTS asi ON ASI.ID = ff.IDPRODUIT;
+
+ALTER TABLE PROFORMA_DETAILS
+    ADD ristourne NUMBER(5,2);
+
+CREATE OR REPLACE VIEW PROFORMA_DETAILS_VIDE AS
+select p."ID",p."IDPROFORMA",p."IDPRODUIT",p."IDORIGINE",p."QTE",p."PU",p."REMISE",p."TVA",p."PUACHAT",p."PUVENTE",p."IDDEVISE",p."TAUXDECHANGE",p."DESIGNATION",p."COMPTE",p."PUREVIENT",p."IDDEMANDEPRIXFILLE",p."UNITE",p."DATEDEBUT",'' as unitelib,0 as punet,0 as montantht,0 as montantttc, p.RISTOURNE from PROFORMA_DETAILS p;
+
+ALTER TABLE BONDECOMMANDE_CLIENT_FILLE
+    ADD ristourne NUMBER(5,2);
+
+CREATE OR REPLACE VIEW BONDECOMMANDE_CLIENT_FILLE_V AS
+select p.ID,p.PRODUIT,p.IDBC,p.QUANTITE,p.PU,p.MONTANT,p.TVA,p.REMISE,p.IDDEVISE,p.UNITE,p.DESIGNATION,'' as unitelib,0 as punet,0 as montantht,0 as montantttc,p.RISTOURNE  from BONDECOMMANDE_CLIENT_FILLE p;

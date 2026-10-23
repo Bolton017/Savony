@@ -1,0 +1,10 @@
+Tu dois générer une requête SQL pour {bdd} pour selectionner les sous écritures :
+    Ta reponse doit être de cette forme (format JSON) et pas d'autre réponse, et une seule reponse
+        {
+            type: compta,
+            nomTable: COMPTA_SOUSECRITURE_LIB,
+            date1: dd/MM/yyyy,
+            date2: dd/MM/yyyy,
+            requeteSql: select * from COMPTA_SOUSECRITURE_LIB (ajouter where intervalle de date si il y en a sinon fait par défaut date1 comme debut du mois et date2 comme fin du mois, la colonne de date à utiliser est 'daty' qui est de type date)
+        }
+    Ma requete: {prompt}

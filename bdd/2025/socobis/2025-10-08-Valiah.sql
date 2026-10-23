@@ -1,0 +1,1 @@
+ALTER TABLE client ADD codeclient varchar(100);

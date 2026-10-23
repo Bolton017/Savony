@@ -1,0 +1,11 @@
+UPDATE menudynamique SET rang = 3 WHERE id = 'MNDN00000002111115';
+UPDATE menudynamique SET rang = 4 WHERE id = 'MD00000003004';
+UPDATE menudynamique SET rang = 5, id_pere = 'MNDN00000002111' WHERE id = 'MNDNMT012';
+UPDATE menudynamique SET rang = 1 WHERE id = 'MNDNMT0123';
+UPDATE menudynamique SET rang = 2 WHERE id = 'MNDNMT0116';
+UPDATE menudynamique SET rang = 3 WHERE id = 'MNDNMT0134256';
+UPDATE menudynamique SET rang = 4 WHERE id = 'MNDNMT013425678978545';
+UPDATE menudynamique SET rang = 5 WHERE id = 'ELM001026';
+UPDATE menudynamique SET rang = 6, id_pere = 'MNDN00000002111' WHERE id = 'MNDNMT012';
+UPDATE menudynamique SET libelle = 'maintenance', href = '', rang = 6, id_pere = 'MNDN00000002111' WHERE id = 'MNDNMT012';
+UPDATE menudynamique SET href = '' WHERE id = 'MNDNMT01';

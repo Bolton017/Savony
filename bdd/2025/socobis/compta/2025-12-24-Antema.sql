@@ -1,0 +1,64 @@
+create table IMPRIMEDECLARATION (
+    id VARCHAR(255) primary key,
+    numero VARCHAR(255),
+    rubrique VARCHAR(255)
+);
+
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('100','100','Chiffre d’affaires taxable relatif aux exportations (taux 0%)');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('102','102','Chiffre d’affaire taxable 5% (Gaz butane, Pâtes alimentaires de fabrication locale)');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('103','103','Chiffre d’affaire taxable 15% (Supercarburant titrant 95 indice d’octane et plus, Gas-oil)');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('105','105','Chiffre d’affaires taxable sur les opérations transport terrestre de marchandises/hydrocarb (taux 20%)');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('106','106','Chiffre d''affaires taxable sur les ventes des biens');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('107','107','Chiffre d''affaires taxable sur les prestations de services');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('108','108','Chiffre d''affaires taxable sur les travaux immobiliers');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('115','115','Produits de cession d''immobilisations (taux de 20%)');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('125','125','Montant des livraisons à soi-même (taux de 20%)');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('130','130','Chiffre d’affaires objet d''une Attestation de destination (AD)');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('140','140','Chiffre d’affaires taxable s/Marchés publics dont la TVA est encore non encaissée');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('150','150','Montant total des affaires taxables (lignes 102+103+105+106+107+108+115+125+140)');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('155','155','Chiffre d''affaires sur Marchés publics soumis à la TMP');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('160','160','Chiffre d’affaires exonéré');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('161','161','Total chiffres d''affaires exonérés (155+160)');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('165','165','Chiffre d''affaires dont TVA collectée en amont par un tiers');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('170','170','Chiffre d''affaires total de la période (lignes 100+102+103+105+106+107+108+130+140+161+165)');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('180','180','Chiffre d''affaires ou Produits aux fins de régularisation des TVA');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('200','200','TVA collectée (Gaz butane, Pâtes alimentaires de fabrication locale) [L102*5%]');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('205','205','TVA collectée (Supercarburant titrant 95 indice d’octane et plus, Gas-oil) [L103*20%]');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('210','210','TVA collectée [ligne (150) x 20%]');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('270','270','Autres TVA collectées sur régularisations');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('271','271','TVA collectée non encore encaissée sur Marchés publics (140*taux)');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('272','272','Report - TVA collectée non encore encaissée sur Marchés publics');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('273','273','TVA collectée encaissée sur Marchés publics de la période');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('274','274','TVA collectée restant à encaisser sur Marchés publics à reporter (271+272-273)');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('275','275','TVA collectée durant la période (lignes 200+205+210+270+273)');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('300','300','TVA déductible sur les biens locaux destinés à la revente');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('305','305','TVA déductible sur les biens importés destinés à la revente');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('310','310','TVA déductible sur les biens destinés à la revente (lignes 300+305)');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('315','315','TVA déductible sur investissements incorporels (importés et/ou locaux) non éligibles');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('316','316','TVA déductible sur investissements corporels locaux non éligibles');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('320','320','TVA déductible sur investissements corporels locaux éligibles');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('330','330','TVA déductible sur investissements corporels importés éligibles');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('335','335','TVA déductible sur investissements corporels importés non éligibles');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('338','338','TVA déductible sur achats de gazole liés aux opérations de transport terrestre de marchandises et hydrocarbures');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('340','340','TVA déductible sur les autres biens locaux');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('345','345','TVA déductible sur les autres biens importés');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('350','350','TVA déductible sur les services locaux');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('355','355','TVA déductible sur les services importés');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('359','359','Régularisation TVA déductible sur acquisitions de biens, services et d’équipements/immeubles (+ ou -)');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('360','360','Total TVA déductible autres que sur investissements éligibles aux fins du calcul du prorata de déduction (315+316+335+340+345+350+355+359)');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('365','365','Taux du prorata de déduction (en pourcentage et suivant le CA de l''année précédente)');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('366','366','TVA déductible autres que sur investissements éligibles selon le prorata de déduction (360*365)+338');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('368','368','TVA déductible sur investissements éligibles aux fins du calcul du prorata de déduction (320+330)');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('370','370','TVA déductible sur investissements éligibles selon le prorata de déduction (368*365)');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('375','375','TVA déductible pour la période (310+366+370)');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('400','400','Crédit de TVA du mois [ligne (375-275)]');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('579','579','Régularisation des TVA déductibles après application du prorata définitif (en + ou en -)');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('589','589','Autres régularisations des TVA sur les biens destinés à la revente (en + ou en -)');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('610','610','Crédit reportable de la période précédente ou crédit d''ouverture');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('620','620','Crédit de TVA annulé suite à un contrôle (Réservée à l''Administration fiscale)');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('630','630','Crédit de TVA demandé en remboursement au cours de la période');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('635','635','Crédit de TVA non demandé en remboursement dans le délai légal');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('640','640','Crédit de TVA rejeté au cours de la période mais encore imputable');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('670','670','Crédit de TVA transféré en charge au cours de la période');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('700','700','TVA nette à payer à la fin de la période : (275+620)-(375+579+589+610+635+640)');
+INSERT INTO IMPRIMEDECLARATION(ID,NUMERO, RUBRIQUE) VALUES('701','701','Crédit à reporter (610+400+579+589+640)-(620+630+670)');

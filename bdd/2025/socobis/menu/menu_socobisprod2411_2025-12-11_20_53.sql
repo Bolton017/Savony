@@ -1,0 +1,51 @@
+UPDATE menudynamique SET rang = 1 WHERE id = 'MENUDYN00304001';
+UPDATE menudynamique SET rang = 2 WHERE id = 'MNDN00001';
+UPDATE menudynamique SET rang = 3 WHERE id = 'MNDN000000001';
+UPDATE menudynamique SET rang = 4 WHERE id = 'MNDN000000002';
+UPDATE menudynamique SET rang = 5 WHERE id = 'MNDNMT01';
+UPDATE menudynamique SET rang = 12 WHERE id = 'MDT021030017';
+UPDATE menudynamique SET rang = 13 WHERE id = 'MNDN00002';
+UPDATE menudynamique SET rang = 14 WHERE id = 'MENUP001V';
+UPDATE menudynamique SET rang = 15 WHERE id = 'ELM000011';
+UPDATE menudynamique SET rang = 16 WHERE id = 'MNDN00000002111';
+UPDATE menudynamique SET rang = 7 WHERE id = 'MENUDYN001';
+UPDATE menudynamique SET rang = 8 WHERE id = 'MNDN274';
+UPDATE menudynamique SET rang = 9 WHERE id = 'ELM000010';
+UPDATE menudynamique SET rang = 5 WHERE id = 'MNDN000000003';
+UPDATE menudynamique SET rang = 6 WHERE id = 'MENUDYN001';
+UPDATE menudynamique SET rang = 7 WHERE id = 'MNDN274';
+UPDATE menudynamique SET rang = 8 WHERE id = 'ELM000010';
+UPDATE menudynamique SET rang = 9 WHERE id = 'MENUDYN002';
+UPDATE menudynamique SET rang = 10 WHERE id = 'MNDNMT01';
+UPDATE menudynamique SET rang = 10 WHERE id = 'MDT021030017';
+UPDATE menudynamique SET rang = 11 WHERE id = 'MNDNMT01';
+UPDATE menudynamique SET rang = 12 WHERE id = 'ELM000904001';
+UPDATE menudynamique SET rang = 8 WHERE id = 'ELM000011';
+UPDATE menudynamique SET rang = 9 WHERE id = 'ELM000010';
+UPDATE menudynamique SET rang = 11 WHERE id = 'MDT021030017';
+UPDATE menudynamique SET rang = 12 WHERE id = 'MNDNMT01';
+UPDATE menudynamique SET rang = 13 WHERE id = 'ELM000904001';
+UPDATE menudynamique SET rang = 13 WHERE id = 'MNDN00002';
+UPDATE menudynamique SET rang = 14 WHERE id = 'MENUP001V';
+UPDATE menudynamique SET rang = 15 WHERE id = 'ELM000904001';
+UPDATE menudynamique SET rang = 8 WHERE id = 'MNDN00002';
+UPDATE menudynamique SET rang = 9 WHERE id = 'ELM000011';
+UPDATE menudynamique SET rang = 10 WHERE id = 'ELM000010';
+UPDATE menudynamique SET rang = 11 WHERE id = 'MENUDYN002';
+UPDATE menudynamique SET rang = 12 WHERE id = 'MDT021030017';
+UPDATE menudynamique SET rang = 13 WHERE id = 'MNDNMT01';
+
+-- script pour l'usermenu
+
+DELETE FROM usermenu WHERE id = 'UMMMT546512125465412345'; -- 1 rows
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM14B6C8EF', 'MEN764610006403774', NULL, 'cheffab', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM36DEC0FC', 'MEN764610006403774', NULL, 'magcentral', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM085613A7', 'MEN764610006403774', NULL, 'caisse', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM27314C9E', 'MEN764610006403774', NULL, 'dg', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM5D5001F2', 'MEN764610006403774', NULL, 'gestionnaire', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UME69CECC9', 'MEN764610006403774', NULL, 'magtransitmp', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UMD6BB1898', 'MEN764610006403774', NULL, 'magtransiteblg', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UMEBE57B57', 'MEN764610006403774', NULL, 'respachat', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UMD2395F65', 'MEN764610006403774', NULL, 'chefachat', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UMD277D951', 'MEN764610006403774', NULL, 'ctrmaitre', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM914FE652', 'MEN764610006403774', NULL, 'pompiste', 1);

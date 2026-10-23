@@ -1,0 +1,24 @@
+CREATE OR REPLACE FORCE VIEW "FABRICATIONCPL" ("ID", "LANCEPAR", "CIBLE", "REMARQUE", "LIBELLE", "BESOIN", "DATY", "IDOFFILLE", "IDOF", "LANCEPARLIB", "CIBLELIB", "ETAT", "ETATLIB") AS
+ SELECT
+f.ID,f.LANCEPAR,f.CIBLE,f.REMARQUE,f.LIBELLE,f.BESOIN,f.DATY,f.idOffille,nvl(f.idof, off.idmere) AS idof,
+p.val AS lanceparLib,
+p2.val AS cibleLib,
+f.etat AS etat,
+CASE
+		WHEN f.ETAT=1
+		THEN 'CREE'
+		WHEN f.ETAT=11
+		THEN 'VALIDEE'
+		WHEN f.ETAT=0
+		THEN 'ANNULEE'
+	    WHEN f.ETAT=21
+		THEN 'ENTAME'
+	    WHEN f.ETAT=31
+		THEN 'BLOQUE'
+	    WHEN f.ETAT=41
+		THEN 'TERMINEE'
+	END AS ETATLIB
+FROM FABRICATION f
+LEFT JOIN POINT p ON p.id = f.lancepar
+LEFT JOIN POINT p2 ON p2.id = f.cible
+LEFT JOIN offille off ON f.idoffille = off.id;

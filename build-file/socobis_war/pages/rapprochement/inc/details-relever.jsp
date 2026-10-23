@@ -1,0 +1,50 @@
+<%@page import="mg.cnaps.compta.*"%>
+<%@ page import="user.*" %>
+<%@ page import="bean.*" %>
+<%@ page import="utilitaire.*" %>
+<%@ page import="affichage.*" %>
+<%@ page import="ristourne.*" %>
+<%@ page import="rapprochement.ReleverDetail" %>
+
+<%
+    try{
+        ReleverDetail t = new ReleverDetail();
+        t.setNomTable("ReleverDetailOrder");
+        String[] listeCrt = {};
+        String[] listeInt = {};
+        String[] libEntete = {"id","daty","designation", "debit", "credit"};
+        PageRecherche pr = new PageRecherche(t, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
+        pr.setUtilisateur((user.UserEJB) session.getValue("u"));
+        pr.setAWhere(" AND IDMERE='"+request.getParameter("id")+"'");
+        pr.setLien((String) session.getValue("lien"));
+        String[] colSomme = null;
+        pr.setNpp(500);
+        pr.creerObjetPage(libEntete, colSomme);
+
+//        String[] lienTableau = {pr.getLien() + "?but=produits/as-ingredients-fiche.jsp"};
+//        String colonneModal[] = {"idproduit"};
+//        String[] colonneLien = {"idproduit"};
+//        pr.getTableau().setLien(lienTableau);
+//        pr.getTableau().setModalOnClick(true,colonneModal);
+//        pr.getTableau().setColonneLien(colonneLien);
+%>
+
+<div class="box-body">
+    <%
+        String[] libEnteteAffiche =  {"ID","Date","D&eacute;signation", "D&eacute;bit", "Cr&eacute;dit"};
+        pr.getTableau().setLibelleAffiche(libEnteteAffiche);
+        if(pr.getTableau().getHtml() != null){
+            out.println(pr.getTableau().getHtml());
+            out.println(pr.getBasPage());
+        }else
+        {
+    %><center><h4>Aucune donne trouv&eacute;e</h4></center><%
+    }
+
+%>
+</div>
+<%=pr.getModalHtml("modalContent")%>
+<%
+    } catch (Exception e) {
+        e.printStackTrace();
+    }%>

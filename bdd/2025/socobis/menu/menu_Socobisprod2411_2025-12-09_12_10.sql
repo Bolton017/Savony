@@ -1,0 +1,13 @@
+UPDATE menudynamique SET rang = 1 WHERE id = 'MNDNT2205008';
+UPDATE menudynamique SET rang = 2 WHERE id = 'MNDSN287';
+UPDATE menudynamique SET rang = 3 WHERE id = 'MNDN285';
+UPDATE menudynamique SET rang = 4 WHERE id = 'MNDNT2205001';
+UPDATE menudynamique SET rang = 5 WHERE id = 'MNDNT2205004';
+UPDATE menudynamique SET rang = 6 WHERE id = 'MNDNT2205007';
+UPDATE menudynamique SET rang = 2 WHERE id = 'MNDNT2205007';
+UPDATE menudynamique SET rang = 3 WHERE id = 'MNDSN287';
+UPDATE menudynamique SET rang = 3 WHERE id = 'MNDNT2205004';
+UPDATE menudynamique SET rang = 4 WHERE id = 'MNDSN287';
+UPDATE menudynamique SET rang = 5 WHERE id = 'MNDN285';
+UPDATE menudynamique SET rang = 6 WHERE id = 'MNDNT2205001';
+UPDATE menudynamique SET rang = 6 WHERE id = 'MNDN285';

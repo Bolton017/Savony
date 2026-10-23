@@ -1,0 +1,188 @@
+Si l'utilisateur demande une ou plusieurs pages JSP :
+Tu dois générer une page JSP pour afficher les données venant d'APJ.
+Réponds en JSON par le code JSP et n'oublie pas le jsp au debut et a la fin de la page et le code java (si il y en a avec java au debut et  a la fin), sans texte explicatif, et mets ta réponse dans `iaResp` dans ce JSON :
+{
+    type: dev,
+    iaResp: java\n ton code java ici\n\njsp\n ton code JSP ici\n
+}
+Aucune explication hors des blocs de code.
+Tu n'a pas besoin de setter les types de html car l'APJ le fait directement.
+Voici des templates de référence (à utiliser selon le besoin, la class Exemple est l'exemple dans la situation) :
+
+===============================
+PAGE DE SAISIE
+===============================
+jsp
+<%--
+    Document   : exemple-saisie.jsp
+    Created on :
+    Author     :
+--%>
+
+<%@page import=\"chatbot.templates.Exemple\"%>
+<%@page import=\"affichage.PageInsert\"%>
+<%@page import=\"user.UserEJB\"%>
+
+<%
+    //page de saisie simple suivant le framework APJ
+    try{
+
+        UserEJB u = (user.UserEJB) session.getValue(\"u\");
+        String  mapping = \"chatbot.templates.Exemple\",
+                nomtable = \"exemple\",
+                apres = \"exemple/exemple-fiche.jsp\",
+                titre = \"Nouvelle Exemple\";
+
+        Exemple  exemple = new Exemple();
+        exemple.setNomTable(nomtable);
+        PageInsert pi = new PageInsert(exemple, request, u);
+        pi.setLien((String) session.getValue(\"lien\"));
+        pi.getFormu().getChamp(\"nom\").setLibelle(\"Nom\");
+        pi.getFormu().getChamp(\"compte\").setPageAppelComplete(\"mg.cnaps.compta.ComptaCompte\", \"compte\", \"COMPTA_COMPTE\");
+        pi.preparerDataFormu();
+%>
+<div class=\"content-wrapper\">
+    <h1> <%=titre%></h1>
+    <form action=\"<%=pi.getLien()%>?but=apresTarif.jsp\" method=\"post\" name=\"<%=nomtable%>\" id=\"<%=nomtable%>\">
+        <%
+            pi.getFormu().makeHtmlInsertTabIndex();
+            out.println(pi.getFormu().getHtmlInsert());
+            out.println(pi.getHtmlAddOnPopup());
+        %>
+        <input name=\"acte\" type=\"hidden\" value=\"insert\">
+        <input name=\"bute\" type=\"hidden\" value=\"<%=apres%>\">
+        <input name=\"classe\" type=\"hidden\" value=\"<%=mapping%>\">
+        <input name=\"nomtable\" type=\"hidden\" value=\"<%=nomtable%>\">
+    </form>
+</div>
+<% } catch (Exception e) { e.printStackTrace(); %>
+<script>alert('<%=e.getMessage()%>'); history.back();</script>
+<% } %>
+
+
+===============================
+PAGE LISTE
+===============================
+jsp
+<%--
+    Document   : exemple-liste.jsp
+    Created on :
+    Author     :
+--%>
+
+<%@page import=\"chatbot.templates.Exemple\"%>
+<%@page import=\"affichage.PageRecherche\"%>
+
+<% try{
+    //page de liste suivant le framework APJ
+    Exemple t = new Exemple();
+    t.setNomTable(\"exemple\");
+    String listeCrt[] = {\"id\",\"var1\"};
+    String listeInt[] = {\"var1\"};
+    String libEntete[] = {\"id\",\"var1\",\"var2\"};
+    PageRecherche pr = new PageRecherche(t, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
+    pr.setTitre(\"Liste des Exemples\");
+    pr.setUtilisateur((user.UserEJB) session.getValue(\"u\"));
+    pr.setLien((String) session.getValue(\"lien\"));
+    pr.setApres(\"exemple/exemple-liste.jsp\");
+    pr.getFormu().getChamp(\"id\").setLibelle(\"Id\");
+    pr.getFormu().getChamp(\"var1\").setLibelle(\"Variable 1\");
+    pr.getFormu().getChamp(\"var2\").setLibelle(\"Variable 2\");
+    String[] colSomme = null;
+    pr.creerObjetPage(libEntete, colSomme);
+    String lienTableau[] = {pr.getLien() + \"?but=exemple/exemple-fiche.jsp\"};
+    String colonneLien[] = {\"id\"};
+    pr.getTableau().setLien(lienTableau);
+    pr.getTableau().setColonneLien(colonneLien);
+    String libEnteteAffiche[] = {\"ID\", \"Variable 1\", \"Variable 2\"};
+    pr.getTableau().setLibelleAffiche(libEnteteAffiche);
+%>
+<div class=\"content-wrapper\">
+    <section class=\"content-header\">
+        <h1><%= pr.getTitre() %></h1>
+    </section>
+    <section class=\"content\">
+        <form action=\"<%=pr.getLien()%>?but=<%= pr.getApres() %>\" method=\"post\">
+            <%= pr.getFormu().getHtmlEnsemble() %>
+        </form>
+        <%= pr.getTableauRecap().getHtml() %><br>
+        <%= pr.getTableau().getHtml() %>
+        <%= pr.getBasPage() %>
+    </section>
+</div>
+<% } catch(Exception e){ e.printStackTrace(); } %>
+
+
+===============================
+PAGE FICHE
+===============================
+jsp
+<%--
+    Document   : exemple-fiche.jsp
+    Created on :
+    Author     :
+--%>
+
+<%@page import=\"chatbot.templates.Exemple\"%>
+<%@page contentType=\"text/html\" pageEncoding=\"UTF-8\"%>
+<%@ page import=\"user.*\" %>
+<%@ page import=\"bean.*\" %>
+<%@ page import=\"utilitaire.*\" %>
+<%@ page import=\"affichage.*\" %>
+
+<%
+    UserEJB u = (user.UserEJB)session.getValue(\"u\");
+    Exemple exemple = new Exemple();
+    exemple.setNomTable(\"exemple\");
+
+    PageConsulte pc = new PageConsulte(exemple, request, u);
+    pc.setTitre(\"Fiche Exemple\");
+    pc.getBase();
+    String id=pc.getBase().getTuppleID();
+    pc.getChampByName(\"id\").setLibelle(\"Id\");
+    pc.getChampByName(\"var1\").setLibelle(\"Variable 1\");
+    pc.getChampByName(\"var2\").setLibelle(\"Variable 2\");
+    String lien = (String) session.getValue(\"lien\");
+    String pageModif = \"exemple/exemple-saisie.jsp?acte=update\";
+    String classe = \"chatbot.templates.Exemple\";
+%>
+
+<div class=\"content-wrapper\">
+    <div class=\"row\">
+        <div class=\"col-md-3\"></div>
+        <div class=\"col-md-6\">
+            <div class=\"box-fiche\">
+                <div class=\"box\">
+                    <div class=\"box-title with-border\">
+                        <h1 class=\"box-title\">
+                            <a href=\"<%= lien + \"?but=exemple/exemple-liste.jsp\"%>\">
+                                <i class=\"fa fa-arrow-circle-left\"></i>
+                            </a><%=pc.getTitre()%>
+                        </h1>
+                    </div>
+                    <div class=\"box-body\">
+                        <%= pc.getHtml() %><br/>
+                        <div class=\"box-footer\">
+                            <a class=\"btn btn-warning pull-right\" href=\"<%= lien + \"?but=\"+ pageModif +\"&id=\" + id%>\" style=\"margin-right: 10px\">Modifier</a>
+                            <a class=\"pull-right\" href=\"<%= lien + \"?but=apresTarif.jsp&id=\" + id+\"&acte=delete&bute=exemple/exemple-liste.jsp&classe=\"+classe %>\">
+                                <button class=\"btn btn-danger\">Supprimer</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+===============================
+FIN DES TEMPLATES
+===============================
+
+Réponds en un seul JSON pour le code et jsp et n'oublie pas le jsp au debut et a la fin de la page et le code java (si il y en a avec java au debut et  a la fin), sans texte explicatif, et mets ta réponse dans `iaResp` dans ce JSON :
+{
+    type: dev,
+    iaResp: java\n ton code java ici\n\njsp\n ton code JSP ici\n
+}
+Seulement un json pour le code java et code jsp
+Besoin : {besoin}

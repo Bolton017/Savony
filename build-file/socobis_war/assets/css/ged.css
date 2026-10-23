@@ -1,0 +1,35 @@
+#ged-index .box-header { padding: 12px 16px; }
+#ged-index .box-body { padding: 0; }
+
+#ged-index .ged-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+#ged-index .ged-nav { display: flex; align-items: center; gap: 12px; min-width: 0; }
+#ged-index .ged-back { color: #666; text-decoration: none; white-space: nowrap; }
+#ged-index .ged-back:hover { color: #333; }
+#ged-index .ged-path { color: #555; }
+#ged-index .ged-path a { color: #337ab7; text-decoration: none; }
+#ged-index .ged-path a:hover { text-decoration: underline; }
+#ged-index .ged-path .sep { color: #bbb; margin: 0 6px; }
+#ged-index .ged-path .cur { color: #333; font-weight: 600; }
+#ged-index .ged-search input { max-width: 240px; }
+
+#ged-index .ged-table { margin-bottom: 0; }
+#ged-index .ged-table > thead > tr > th { border-bottom: 1px solid #e5e5e5; white-space: nowrap; font-weight: 600; color: #555; padding: 10px 12px; }
+#ged-index .ged-table > thead > tr > th a { color: inherit; text-decoration: none; }
+#ged-index .ged-table > tbody > tr > td { vertical-align: middle; border-top: 1px solid #f2f2f2; padding: 8px 12px; }
+#ged-index .ged-table td.c-name i { width: 20px; text-align: center; margin-right: 10px; font-size: 16px; }
+#ged-index .ged-table td.c-name a { color: #333; text-decoration: none; }
+#ged-index .ged-table td.c-name a:hover { text-decoration: underline; }
+#ged-index .ged-table .c-size { text-align: right; white-space: nowrap; color: #777; width: 110px; }
+#ged-index .ged-table .c-type { white-space: nowrap; color: #777; width: 220px; }
+#ged-index .ged-table .c-date { white-space: nowrap; color: #777; width: 180px; }
+
+#ged-index .ged-folder { color: #f6c453; }
+#ged-index .ged-pdf { color: #d9534f; }
+#ged-index .ged-xls { color: #1d6f42; }
+#ged-index .ged-doc { color: #2b579a; }
+#ged-index .ged-ppt { color: #d24726; }
+#ged-index .ged-img { color: #e0a800; }
+#ged-index .ged-code { color: #6c8b3c; }
+#ged-index .ged-file { color: #9aa0a6; }
+
+#ged-index .ged-empty { text-align: center; color: #999; padding: 40px 0; }

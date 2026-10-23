@@ -1,0 +1,16 @@
+CREATE SEQUENCE seq_matricule
+    START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 999999999999
+    NOCYCLE
+CACHE 20;
+
+
+CREATE OR REPLACE FUNCTION GETseq_matricule
+ RETURN NUMBER
+IS
+  retour NUMBER;
+BEGIN
+SELECT seq_matricule.NEXTVAL into retour from dual;
+RETURN retour;
+END;

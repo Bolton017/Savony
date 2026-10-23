@@ -1,0 +1,5 @@
+
+
+ALTER TABLE DMDACHAT
+ADD Destinataire VARCHAR(200);
+

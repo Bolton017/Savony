@@ -1,0 +1,1 @@
+-- UPDATE client SET delai = 30 WHERE IDTYPECLIENT = 'TYPE001';

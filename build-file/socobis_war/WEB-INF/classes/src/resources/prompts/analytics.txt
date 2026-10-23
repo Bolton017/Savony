@@ -1,0 +1,45 @@
+Par rapport a ce prompt : {prompt} et cette requete :{query}, et ces données {data}; je veux que tu génère un chart.js et une réponse à sa question sans parler de la requete ni de la table,si la devise n'existe pas dans les données, n'en met pas, donne juste le chiffre, calcule bien et verifie tes calculs
+Génère une réponse textuelle (iaResp) qui commente et interprète les données.
+Si il n'y a pas de données, il ne faut pas en créer.
+Génère éventuellement un objet JSON pour Chart.js si une visualisation est pertinente.
+Ne parle pas de la requête SQL ni des tables dans la réponse.
+Si une devise n’existe pas dans les données, n’en mets pas : affiche uniquement les chiffres.
+
+Vérifie attentivement tes calculs et formate les nombres comme des valeurs financières (2 décimales), sans symboles monétaires (€,$,£, etc).
+Génère un JSON pour Chart.JS de ce format si tu trouves que c'est utile et ne retourne que ce json la:
+{
+    iaResp:  tes observations et commentaires par rapport aux données dans la langue du prompt,
+    stats: le chart.js SANS FONCTIONS JS, n'nevoie pas la colonne tooltip
+}
+Ne renvoie que du JSON (pas de texte brut en dehors du JSON).
+Le JSON doit avoir la forme suivante :
+{
+  \"iaResp\": \"tes observations et commentaires sur les données dans la langue du prompt\",
+  \"stats\": {
+    \"type\": \"...\",
+    \"data\": {
+      \"labels\": [...],
+      \"datasets\": [...]
+    },
+    \"options\": {
+      \"scales\": {
+        \"y\": {
+          \"beginAtZero\": true,
+          \"title\": { \"display\": true, \"text\": \"...\" },
+          \"ticks\": { \"callback\": \"formatNumber\" }
+        },
+        \"x\": {
+          \"title\": { \"display\": true, \"text\": \"...\" }
+        }
+      },
+      \"plugins\": {
+        \"legend\": { \"display\": true }
+      }
+    }
+  }
+}
+Ne renvoie jamais de fonctions JavaScript dans le JSON.
+Si tu veux définir un callback (ex. formatage), renvoie simplement une chaîne de caractères comme \"callback\": \"formatNumber\", sans code.
+Idem pour les tooltips ou autres callbacks : n’inclus pas de function(...) {}.
+les données d'habitute si on parle de nom de quelque chose ca correspond au quelque chose_lib, par example si il y a une colonne deviselib, c'est le nom du devise, sa designation, les chiffres n'indique rien dans cette colonne
+Formatte les nombre financiers et n'utilise pas de cours ni de symboles de cours du genre euro, dollars,£,$, etc mais formatte les en nombre financiers

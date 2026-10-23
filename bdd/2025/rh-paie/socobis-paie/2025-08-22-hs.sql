@@ -1,0 +1,42 @@
+-- integration heure sup 50% NI
+
+CREATE OR REPLACE VIEW HEURESUPFABRICATION_TOTAL AS
+SELECT
+    p.id AS idPersonne,
+    pm.NOM AS idPersonnelib,
+    p.MATRICULE,
+    r.TAUXHORAIRE,
+    CAST(NVL(c.montant,0)/((40*52)/12) AS NUMBER(30,2)) AS TAUXHORAIREEFFECTIVE,
+    p.temporaire,
+    TO_CHAR(fab.daty, 'IYYY-IW') AS semaine,
+    SUM(h.HS) AS totalHeureSemaine
+FROM HEURESUPFABRICATION h
+         LEFT JOIN RESSOURCEPARFABRICATIONCOMPLET r ON r.id = h.IDRESSPARFAB
+         LEFT JOIN PAIE_INFO_PERSONNEL p ON p.id = r.idRessource
+         LEFT JOIN CATEGORIE_QUALIFICATION c ON c.IDQUALIFICATION = p.IDQUALIFICATION
+         LEFT JOIN PERSONNEL_MATRICULE pm ON pm.id = r.IDRESSOURCE
+         LEFT JOIN FABRICATION fab ON fab.ID = h.IDFABRICATION
+GROUP BY p.id, pm.NOM, p.MATRICULE, r.TAUXHORAIRE, p.temporaire,
+         TO_CHAR(fab.daty, 'IYYY-IW'), c.montant;
+
+
+CREATE OR REPLACE VIEW HEURESUPFABRICATION_CUMUL AS
+SELECT
+    p.id AS idPersonne,
+    pm.NOM AS idPersonnelib,
+    p.MATRICULE,
+    TO_CHAR(fab.daty, 'IYYY-IW') AS semaine,
+    fab.daty AS jour,
+    SUM(h.HS) AS heureJour,
+    SUM(SUM(h.HS)) OVER (
+        PARTITION BY p.id, TO_CHAR(fab.daty, 'IYYY-IW')
+        ORDER BY fab.daty
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) - SUM(h.HS) AS heureDejaCumulees
+FROM HEURESUPFABRICATION h
+         LEFT JOIN RESSOURCEPARFABRICATIONCOMPLET r ON r.id = h.IDRESSPARFAB
+         LEFT JOIN PAIE_INFO_PERSONNEL p ON p.id = r.idRessource
+         LEFT JOIN PERSONNEL_MATRICULE pm ON pm.id = r.IDRESSOURCE
+         LEFT JOIN FABRICATION fab ON fab.ID = h.IDFABRICATION
+WHERE h.ETAT >= 11
+GROUP BY p.id, pm.NOM, p.MATRICULE, fab.daty;

@@ -1,0 +1,40 @@
+UPDATE menudynamique SET libelle = 'Nouvelle avance' WHERE id = 'AMS007';
+UPDATE menudynamique SET libelle = 'Liste des avances' WHERE id = 'AMS008';
+UPDATE menudynamique SET libelle = 'Remboursement d''avance' WHERE id = 'AMS009';
+UPDATE menudynamique SET libelle = 'Solde congé Droit' WHERE id = 'MD000000001_2';
+UPDATE menudynamique SET libelle = 'Liste des absences' WHERE id = 'JUIN004';
+UPDATE menudynamique SET libelle = 'Nouvelle absence' WHERE id = 'JUIK003';
+UPDATE menudynamique SET libelle = 'Nouvelle pointage' WHERE id = 'MENDYN00001';
+UPDATE menudynamique SET libelle = 'Liste des pointages' WHERE id = 'MENDYN00891';
+UPDATE menudynamique SET rang = 5, id_pere = 'MNDN00000002111' WHERE id = 'MD00000003004';
+UPDATE menudynamique SET rang = 6 WHERE id = 'ELM001026';
+UPDATE menudynamique SET rang = 7 WHERE id = 'MENDYN1765272561517975';
+UPDATE menudynamique SET niveau = 4 WHERE id = 'MD00000003007';
+UPDATE menudynamique SET niveau = 4 WHERE id = 'MD00000003008';
+UPDATE menudynamique SET rang = 4 WHERE id = 'MD000020040030';
+UPDATE menudynamique SET rang = 5 WHERE id = 'MENDYN1765357174546422';
+UPDATE menudynamique SET rang = 6 WHERE id = 'MD00021110001';
+UPDATE menudynamique SET libelle = 'GRH et paie', href = '', rang = 5, id_pere = 'MNDN00000002111' WHERE id = 'MD00000003004';
+UPDATE menudynamique SET libelle = 'Nouveau pointage' WHERE id = 'MENDYN00001';
+UPDATE menudynamique SET href = 'module.jsp?but=paie/editions/periodepaie-liste.jsp', rang = 5 WHERE id = 'MENDYN1765357174546422';
+
+-- script pour l'usermenu
+
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UMDCA26AA8', 'MENDYN1765357238059192', NULL, 'cheffab', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM0FD492B4', 'MENDYN1765357238059192', NULL, 'magcentral', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UME79546CE', 'MENDYN1765357238059192', NULL, 'caisse', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM75CD92DB', 'MENDYN1765357238059192', NULL, 'dg', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM08A01112', 'MENDYN1765357238059192', NULL, 'gestionnaire', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM289327B9', 'MENDYN1765357238059192', NULL, 'magtransitmp', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM168877D2', 'MENDYN1765357238059192', NULL, 'magtransiteblg', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM5316D2F0', 'MENDYN1765357238059192', NULL, 'ctrmaitre', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM3313CE92', 'MENDYN1765357238059192', NULL, 'pompiste', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM3C966687', 'MENDYN1765357253765670', NULL, 'cheffab', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM07CF1C1A', 'MENDYN1765357253765670', NULL, 'magcentral', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UMBFEBB91F', 'MENDYN1765357253765670', NULL, 'caisse', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM717574C3', 'MENDYN1765357253765670', NULL, 'dg', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM20677E0F', 'MENDYN1765357253765670', NULL, 'gestionnaire', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UMC46EF757', 'MENDYN1765357253765670', NULL, 'magtransitmp', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UMECD394A5', 'MENDYN1765357253765670', NULL, 'magtransiteblg', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM10DD38DB', 'MENDYN1765357253765670', NULL, 'ctrmaitre', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM93BB78C2', 'MENDYN1765357253765670', NULL, 'pompiste', 1);

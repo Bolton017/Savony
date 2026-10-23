@@ -1,0 +1,61 @@
+package utils;
+
+public class ConstanteSocobis {
+
+    public static final String CATEGORIE_MAINDOEUVRE = ParametreConstante.getString("PRMS001", "CAT002");
+    public static final String CATEGORIE_CONSOMMABLE = ParametreConstante.getString("PRMS012", "CAT0011");
+    public static final String CATEGORIE_MAINTENANCE = ParametreConstante.getString("PRMS013", "CATM0001");
+    public static final String CATEGORIE_PRODUIT_FINI = ParametreConstante.getString("PRMS014", "CAT008");
+    public static final String ID_CATEGORIESTOCK_RETOUR = ParametreConstante.getString("PRMS022", "CTGST000002");
+    public static final String TYPE_MVT_ENTREE = ParametreConstante.getString("PRMS015", "TPMVST000001");
+    public static final String TYPE_MAG_JIRAMA = ParametreConstante.getString("PRMS016", "TYPMGJIR000041");
+    public static final String TYPE_FACTURE = ParametreConstante.getString("PRMS017", "TPF0002");
+    public static final String TYPE_FRAIS_ACCESSOIRE = ParametreConstante.getString("PRMS018", "TPF0001");
+    public static final String typeFactureFournisseurFAE = ParametreConstante.getString("PRMS064", "FAE");
+    public static final String typeFactureFournisseurFAR = ParametreConstante.getString("PRMS065", "FAR");
+    public static final String perteStock = ParametreConstante.getString("PRMS009", "PARAM001");
+    public static final String gainStock = ParametreConstante.getString("PRMS010", "PARAM002");
+    public static final String getTypeMvtEntree = ParametreConstante.getString("PRMS550", "TPMVST000001");
+    public static final String TYPE_MVT_SORTIE = ParametreConstante.getString("PRMS026", "TPMVST000022");
+    public static final String ID_MOTIF_RISTOURNE = ParametreConstante.getString("PRMS061", "MOTIFRST1");
+    public static final String[] CLIENT_APPRO_VENTE = ParametreConstante.getArray("PRMS058", new String[]{"CLI00SOCT0141100245", "CLI00SOCT01411009992"});
+    public static double POURC_MN = ParametreConstante.getDouble("PRMS027", 0.3);
+    public static double POURC_JF = ParametreConstante.getDouble("PRMS028", 2.0);
+    public static double POURC_HD = ParametreConstante.getDouble("PRMS029", 1.4);
+    public static double POURC_HS30NI = ParametreConstante.getDouble("PRMS030", 1.3);
+    public static double POURC_HS50NI = ParametreConstante.getDouble("PRMS031", 1.5);
+    public static double plafondNI = ParametreConstante.getDouble("PRMS032", 20.0);
+    public static double maxHS30NI = ParametreConstante.getDouble("PRMS033", 8.0);
+    public static final String CATEGORIE_MO = ParametreConstante.getString("PRMS034", "CAT002");
+    public static final double EQ_CARTON_PETRIN = ParametreConstante.getDouble("PRMS035", 105.0);
+    public static final int CHEFFAB_RANG = ParametreConstante.getInt("PRMS036", 6);
+    public static final String CHEFFABR_RANG = ParametreConstante.getString("PRMS037", "cheffab");
+    public static final String CONTREMAITRE_RANG = ParametreConstante.getString("PRMS038", "ctrmaitre");
+    public static final String MAGCENTRAL_RANG = ParametreConstante.getString("PRMS039", "magcentral");
+    public static final String TRANSITMA_RANG = ParametreConstante.getString("PRMS040", "magtransitmp");
+    public static final String TRANSITEM_RANG = ParametreConstante.getString("PRMS041", "magtransiteblg");
+    public static final String DG_RANG = ParametreConstante.getString("PRMS042", "dg");
+    public static final String MAG_GAZ_RANG = ParametreConstante.getString("PRMS043", "mag_gaz");
+    public static final String SEC_PROD_BISC_RANG = ParametreConstante.getString("PRMS044", "sec_prod_bisc");
+    public static final String ASSIST_CTRM_RANG = ParametreConstante.getString("PRMS045", "assist_ctrm");
+    public static final String SEC_CONF_RANG = ParametreConstante.getString("PRMS046", "sec_conf");
+    public static final String MAG_PIECE_RANG = ParametreConstante.getString("PRMS047", "mag_piece");
+    public static final String MAG_PF_RANG = ParametreConstante.getString("PRMS048", "mag_pf");
+    public static final String ASSIST_MAG_PF_RANG = ParametreConstante.getString("PRMS049", "assist_mag_pf");
+    public static final String RESP_RDQ_RANG = ParametreConstante.getString("PRMS050", "resp_rdq");
+    public static final String MAGASIN = ParametreConstante.getString("PRMS051", "PHARM005");
+    public static final String Devise = ParametreConstante.getString("PRMS052", "AR");
+    public static final String categorie_vehicule = ParametreConstante.getString("PRMS538", "CAT001V");
+    public static final String idComptaPerteReport = ParametreConstante.getString("PRMS545", "PARAMPERTE1");
+    public static final String idComptaGainReport = ParametreConstante.getString("PRMS546", "PARAMGAIN2");
+    public static final String typeavoiravecstock = ParametreConstante.getString("PRMS551", "TYAS0001");
+    public static final String stockTypeInventaire = ParametreConstante.getString("PRMS552", "TPMVST000023");
+    public static final String typeavoirengager = ParametreConstante.getString("PRMS553", "TYAS0002");
+    public static final String comptePerteInvenatre = ParametreConstante.getString("PRMS554", "671400");
+    public static final String compteGainInvenatre = ParametreConstante.getString("PRMS555", "771400");
+    public static final String TYPE_ACHAT_PS = ParametreConstante.getString("PRMS959", "PS");
+    public static final String typeFactureDepenses = ParametreConstante.getString("PRMS076", "FD");
+    public static final String ID_CATEGORIESTOCK_NORMAL = ParametreConstante.getString("PRMS567", "CTGST000001");
+    public static final String ID_DEPARTEMENT_DG = ParametreConstante.getString("PRMS568", "SERV00020");
+
+}

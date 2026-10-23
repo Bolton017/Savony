@@ -1,0 +1,10 @@
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM161848CE', 'MNDN000000002', NULL, 'chef_dep', 0);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM9B6A6724', 'MNDN00110901146001', NULL, 'chef_dep', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UMB87E6A22', 'MNDN000000013', NULL, 'chef_dep', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UMFFA5A32D', 'MNDN001804001', NULL, 'chef_dep', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM5F9F3E68', 'MNDN001804004', NULL, 'chef_dep', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM93FB3D22', 'MNDN001804007', NULL, 'chef_dep', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM1506996D', 'MNDN00605163001', NULL, 'chef_dep', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM5508A9F1', 'MNDN00000002004', NULL, 'chef_dep', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UMEBAABBF2', 'MENDYN176949636389163', NULL, 'chef_dep', 1);
+INSERT INTO usermenu (id, idmenu, refuser, idrole, interdit) VALUES ('UM333C20EE', 'MNDN000000002C', NULL, 'chef_dep', 1);

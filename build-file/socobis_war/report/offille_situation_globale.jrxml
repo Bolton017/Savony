@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="situation_globale" pageWidth="750" pageHeight="842" columnWidth="710" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="68310742-4e60-41ca-b270-29007c335a79">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="daty" class="java.util.Date"/>
+	<parameter name="id" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="rapprochement" class="java.util.List"/>
+	<parameter name="listerapproche_globales" class="java.util.List"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="56" splitType="Stretch">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER} == 1]]></printWhenExpression>
+			<image>
+				<reportElement x="0" y="0" width="114" height="56" uuid="5a8a6800-23bb-470f-809e-b0c70b3b1ca8"/>
+				<imageExpression><![CDATA["logo_sisal.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER} == 1]]></printWhenExpression>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="5" y="8" width="114" height="20" uuid="a9ca3623-3e7b-45f3-acc7-92b7cc4ad415"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{daty}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="516" y="8" width="28" height="20" uuid="8d4e146d-5afc-4701-8295-adbad46371b5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[OF : ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="544" y="8" width="155" height="20" uuid="9dcc692a-4d5c-4463-9c8f-b6cbad9bbaee"/>
+				<textFieldExpression><![CDATA[$P{id}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="77" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="710" height="77" uuid="98209d20-b3e9-4c98-bbfa-c7265f3c57f7"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{rapprochement})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "offille_situation_globale_subreport1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="77">
+			<subreport>
+				<reportElement x="0" y="0" width="710" height="77" uuid="fc67190c-a5ce-47de-bc49-20f33161bfaf"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{listerapproche_globales})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "offille_situation_globale_subreport2.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,1 @@
+alter table MVTSTOCKFILLE add IDLOT VARCHAR(255);

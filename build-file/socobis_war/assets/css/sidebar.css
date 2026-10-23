@@ -1,0 +1,588 @@
+/* ============================================================
+   VARIABLES SIDEBAR
+   ============================================================ */
+:root {
+    --sidebar-icons-width: 80px;
+    --sidebar-submenu-width: 240px;
+    --sidebar-total-width: calc(var(--sidebar-icons-width) + var(--sidebar-submenu-width));
+}
+
+/* ============================================================
+   OVERRIDES LAYOUT ADMINLTE
+   ============================================================ */
+.content-wrapper, .right-side {
+    margin-left: var(--sidebar-total-width) !important;
+    margin-top: 74px !important;
+}
+
+.main-footer {
+    margin-left: var(--sidebar-total-width) !important;
+}
+
+.main-header > .navbar {
+    margin-left: var(--sidebar-total-width) !important;
+    width: calc(100% - var(--sidebar-total-width)) !important;
+}
+
+.main-sidebar, .left-side {
+    width: var(--sidebar-total-width) !important;
+}
+
+/* Quand panneau droit fermé */
+body.submenu-closed .content-wrapper,
+body.submenu-closed .right-side {
+    margin-left: var(--sidebar-icons-width) !important;
+}
+body.submenu-closed .main-sidebar {
+    width: var(--sidebar-icons-width) !important;
+}
+
+body.submenu-closed .main-header > .navbar {
+    margin-left: var(--sidebar-icons-width) !important;
+    width: calc(100% - var(--sidebar-icons-width)) !important;
+}
+
+/* sidebar-collapse (mode icônes seules) */
+.sidebar-mini.sidebar-collapse .content-wrapper,
+.sidebar-mini.sidebar-collapse .right-side,
+.sidebar-mini.sidebar-collapse .main-footer {
+    margin-left: var(--sidebar-icons-width) !important;
+}
+
+/* ============================================================
+   LAYOUT GÉNÉRAL DU SIDEBAR
+   ============================================================ */
+.main-sidebar {
+    display: flex !important;
+    flex-direction: row !important;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: var(--sidebar-total-width) !important;
+    overflow: visible !important;
+}
+
+.main-sidebar,
+.left-side {
+    padding-top: 0 !important;
+}
+
+/* Cacher l'ancienne section sidebar AdminLTE */
+.main-sidebar > .sidebar {
+    display: none !important;
+}
+
+/* ============================================================
+   PANNEAU GAUCHE — ICÔNES
+   ============================================================ */
+.sidebar-icons-panel {
+    width: var(--sidebar-icons-width);
+    min-width: var(--sidebar-icons-width);
+    background: #ffffff;
+    border-right: 1px solid var(--Border, #C3C5C6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100vh;
+    box-sizing: border-box;
+    z-index: 2;
+    padding: 32px 4px 16px;
+}
+
+.sidebar-icons-panel::-webkit-scrollbar {
+    width: 1px;
+}
+.sidebar-icons-panel::-webkit-scrollbar-thumb {
+    background: var(--Onyx-100, #C3C5C6);
+    border-radius: 3px;
+    opacity: 0.2;
+}
+
+/* Item icône (Optimisé ultra-smooth) */
+.sidebar-icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 50px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 2px;
+    padding: 6px 4px;
+    box-sizing: border-box;
+    user-select: none;
+    position: relative;
+    transition: background 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    will-change: transform, background-color; /* Accélération matérielle */
+}
+
+.sidebar-icon-item:hover {
+    background: var(--Onyx-035, #F3F4F4);
+    transform: scale(1.05); /* Effet d'échelle doux au survol */
+}
+
+.sidebar-icon-item.active {
+    background: var(--Primaire-blue-main-color, #2B68D9);
+    transform: scale(1); /* Revient à la normale */
+}
+
+.sidebar-icon-item .material-symbols-rounded {
+    font-size: 20px;
+    color: var(--Onyx-300, #73787A);
+    transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    line-height: 1;
+}
+
+.sidebar-icon-item.active .material-symbols-rounded {
+    color: #ffffff;
+}
+
+
+.sidebar-icon-item.active .icon-label {
+    color: #ffffff;
+}
+
+/* Séparateurs */
+.sidebar-icon-separator {
+    width: 32px;
+    height: 1px;
+    background: var(--Onyx-050, #EBEBEC);
+    margin: 6px 0;
+    flex-shrink: 0;
+}
+
+/* Logo bas */
+.sidebar-logo-bottom {
+    margin-top: auto;
+    padding-top: 12px;
+    flex-shrink: 0;
+}
+
+.sidebar-logo-bottom img {
+    width: 32px;
+    opacity: 0.5;
+}
+
+/* ============================================================
+   PANNEAU DROIT — SOUS-MENUS
+   ============================================================ */
+.sidebar-submenu-panel {
+    width: var(--sidebar-submenu-width);
+    min-width: var(--sidebar-submenu-width);
+    background: #ffffff;
+    border-right: 1px solid var(--Border, #C3C5C6);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    padding: 20px 10px 16px 10px;
+    padding-top: 48px;
+    z-index: 1;
+
+    /* Transition sur toutes les propriétés qui changent */
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    min-width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    padding 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+
+    /* Valeurs par défaut (panneau ouvert) */
+    opacity: 1;
+    visibility: visible;
+}
+
+.sidebar-submenu-panel.hidden {
+    width: 0 !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    opacity: 0 !important;
+    visibility: hidden;
+    overflow: hidden !important;
+    pointer-events: none;
+    border-right: none !important;
+}
+
+/* En-tête section */
+.submenu-header {
+    margin-bottom: 8px;
+    padding: 0 6px;
+    flex-shrink: 0;
+}
+
+.submenu-header h2 {
+    font-size: 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    color: var(--Text-primary, #1C1F21);
+    margin: 0 0 2px 0;
+    line-height: 1.3;
+}
+
+.submenu-header p {
+    font-size: 11px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--Text-secondary, #9B9EA0);
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Label de section */
+.submenu-section-label {
+    font-size: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    color: var(--Onyx-200, #9B9EA0);
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    padding: 0 6px;
+    margin: 12px 0 4px 0;
+    flex-shrink: 0;
+    display: none;
+}
+
+/* Item sous-menu */
+.submenu-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none !important;
+    color: var(--Text-primary, #1C1F21) !important;
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    transition: background 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    line-height: 1.3;
+}
+
+.submenu-item:hover {
+    background: var(--Onyx-025, #F9F9F9);
+    color: var(--Text-primary, #1C1F21) !important;
+    text-decoration: none !important;
+}
+
+.submenu-item.active {
+    background: var(--Primaire-blue-050, #E9F0FB) !important;
+    color: var(--Primaire-blue-main-color, #2B68D9) !important;
+    font-weight: 500;
+}
+
+.submenu-item .material-symbols-rounded {
+    font-size: 16px;
+    color: var(--Onyx-200, #9B9EA0);
+    flex-shrink: 0;
+    line-height: 1;
+    transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.submenu-item.active .material-symbols-rounded {
+    color: var(--Primaire-blue-main-color, #2B68D9);
+}
+
+/* Flèche accordion (Rotation fluide) */
+.submenu-arrow {
+    margin-left: auto !important;
+    font-size: 15px !important;
+    color: var(--Onyx-100, #C3C5C6) !important;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    flex-shrink: 0;
+}
+
+.submenu-item.open .submenu-arrow {
+    transform: rotate(90deg);
+}
+
+/* Sous-sous-menus niveau 3+ (Optimisé pour accordéon fluide) */
+.submenu-children {
+    /* display: none remplacé par max-height pour l'animation */
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding-left: 12px;
+    margin-top: 1px;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s ease-in-out;
+}
+
+.submenu-children.open {
+    max-height: 800px; /* Doit être plus grand que la taille max du contenu */
+    opacity: 1;
+}
+
+.submenu-children .submenu-item {
+    font-size: 12px;
+    padding: 6px 8px;
+    color: var(--Onyx-400, #4B5154) !important;
+}
+
+.submenu-children .submenu-item:hover {
+    color: var(--Text-primary) !important;
+}
+
+.submenu-children .submenu-item.active {
+    color: var(--Primaire-blue-main-color) !important;
+}
+
+/* ============================================================
+   RESPONSIVE MOBILE
+   ============================================================ */
+@media (max-width: 768px) {
+
+    /* 1. On fige les icônes à gauche (ton code préservé) */
+    body.sidebar-collapse .main-sidebar,
+    body.sidebar-collapse .left-side,
+    .main-sidebar,
+    .left-side {
+        -webkit-transform: none !important;
+        transform: none !important;
+        width: var(--sidebar-icons-width) !important;
+        z-index: 1050 !important; /* Assure que les icônes sont au-dessus de tout */
+    }
+
+    /* 2. Le contenu reste derrière (ton code préservé) */
+    .content-wrapper, .right-side {
+        margin-left: var(--sidebar-icons-width) !important;
+    }
+
+    body.sidebar-collapse .main-header > .navbar,
+    .main-header > .navbar {
+        margin-left: var(--sidebar-icons-width) !important;
+        width: calc(100% - var(--sidebar-icons-width)) !important;
+    }
+
+    /* 3. Le panneau de sous-menus (Ton design + Animation + Ombre) */
+    #sidebarSubmenuPanel,
+    .sidebar-submenu-panel {
+        position: fixed !important;
+        left: var(--sidebar-icons-width) !important; /* Aligné juste après les icônes */
+        margin-left: 0 !important;
+        top: 0 !important;
+        height: 100vh !important;
+        z-index: 1045 !important; /* Sous les icônes, mais sur l'overlay */
+        box-shadow: 4px 0 15px rgba(0,0,0,0.15) !important; /* Ajoute une ombre pour détacher le menu du fond */
+
+        /* État fermé : caché vers la gauche */
+        transform: translateX(-100%) !important;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+    /* 4. Quand le menu est OUVERT (il glisse à sa place) */
+    body:not(.sidebar-collapse) #sidebarSubmenuPanel,
+    body:not(.sidebar-collapse) .sidebar-submenu-panel {
+        transform: translateX(0) !important;
+    }
+
+    /* 5. L'OVERLAY SOMBRE (Le fond interactif) */
+    body:not(.sidebar-collapse)::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: var(--sidebar-icons-width); /* Commence après les icônes */
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.4); /* Le fameux fond noir transparent */
+        z-index: 1040; /* Sous le menu blanc, sur le contenu */
+        pointer-events: auto; /* Permet de cliquer dessus */
+        transition: opacity 0.3s ease;
+    }
+
+    /* Ton correctif custom */
+    .form-input.col-md-12.form-input-apj {
+        flex-direction: column !important;
+        align-items: start !important;
+        margin-top: 0 !important;
+    }
+}
+
+/* ============================================================
+   TOGGLE SIDEBAR-COLLAPSE (ANIMATIONS GLOBALES)
+   ============================================================ */
+
+/* Quand sidebar collapsed : cacher le panneau droit */
+body.sidebar-collapse .sidebar-submenu-panel {
+    width: 0 !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Quand sidebar collapsed : ajuster le layout */
+body.sidebar-collapse .content-wrapper,
+body.sidebar-collapse .right-side {
+    margin-left: var(--sidebar-icons-width) !important;
+}
+
+body.sidebar-collapse .main-header > .navbar {
+    margin-left: var(--sidebar-icons-width) !important;
+    width: calc(100% - var(--sidebar-icons-width)) !important;
+}
+
+body.sidebar-collapse .main-sidebar {
+    width: var(--sidebar-icons-width) !important;
+}
+
+/* --- TRANSITIONS FLUIDES SYNCHRONISÉES (La clé du Smooth) --- */
+
+.sidebar-submenu-panel {
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    min-width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    padding 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* On s'assure que TOUT le layout (sidebar + contenu) bouge à la même vitesse */
+.content-wrapper,
+.right-side,
+.main-header > .navbar,
+.main-sidebar,
+.main-footer {
+    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    width 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.main-header .sidebar-toggle {
+    padding: 0 !important;
+}
+.main-header .sidebar-toggle {
+    left: -28px !important;
+    top: 8px !important;
+}
+/* ============================================================
+   DISPARITION FLUIDE DU BOUTON TOGGLE (HAMBURGER)
+   ============================================================ */
+
+/* 1. On prépare l'animation du bouton */
+.sidebar-toggle {
+    /* On utilise la même courbe "ultra-smooth" que le reste du site */
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    margin 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    padding 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+
+    /* Crucial : empêche le SVG de déborder quand le bouton se rétracte */
+    overflow: hidden !important;
+
+    /* On force un affichage inline-flex pour bien centrer le SVG s'il rétrécit */
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 2. Quand le menu est fermé (soit par AdminLTE, soit par notre JS) */
+body.sidebar-collapse .sidebar-toggle,
+body.submenu-closed .sidebar-toggle {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: scale(0.5) !important; /* Le bouton rétrécit en disparaissant */
+
+    /* Rétractation physique pour libérer la place dans le Header */
+    width: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    border: none !important;
+
+    pointer-events: none !important; /* On ne peut plus cliquer dessus */
+}
+
+
+/* ============================================================
+   LIBELLÉ ICÔNE — 1 LIGNE + TOOLTIP AU HOVER
+   ============================================================ */
+
+/* Revenir à 1 ligne avec truncate CSS */
+.sidebar-icon-item .icon-label {
+    font-size: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    color: var(--Text-primary);
+    margin-top: 3px;
+    text-align: center;
+    line-height: 1.2;
+    padding: 0 2px;
+    box-sizing: border-box;
+    width: 68px;
+    max-width: 68px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-icon-item.active .icon-label {
+    color: #ffffff;
+}
+
+/* ============================================================
+   TOOLTIP GLOBAL DYNAMIQUE
+   ============================================================ */
+.global-sidebar-tooltip {
+    /* Fixed permet de se positionner par rapport à la fenêtre (viewport), ignorant les overflow */
+    position: fixed;
+    transform: translateY(-50%); /* Permet de centrer parfaitement le tooltip sur la coordonnée top fournie par JS */
+    background: var(--Onyx-700, #1C1F21);
+    color: #ffffff;
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    padding: 6px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    pointer-events: none; /* Empêche le tooltip de bloquer les interactions sous lui */
+    z-index: 9999;
+
+    /* État par défaut : invisible */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s ease, visibility 0.15s ease;
+}
+
+/* Petite flèche à gauche du tooltip */
+.global-sidebar-tooltip::before {
+    content: '';
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 5px solid transparent;
+    border-right-color: var(--Onyx-700, #1C1F21);
+}
+
+/* État activé par JavaScript */
+.global-sidebar-tooltip.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+
+/*AJUSTEMENT LOGO*/
+a.logo-mini {
+    display: flex;
+    justify-content: center;
+}
+.sidebar-logo-top {
+    display: flex;
+    justify-content: center;
+}

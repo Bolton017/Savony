@@ -1,0 +1,60 @@
+-- Zotina
+
+
+CREATE TABLE PROFORMAFOURNISSEUR
+(
+    ID              VARCHAR2(250) NOT NULL PRIMARY KEY,
+    DATY            DATE,
+    REMARQUE        VARCHAR2(2000),
+    DESIGNATION     VARCHAR2(500),
+    MODEPAIEMENT    VARCHAR2(250),
+    FOURNISSEUR     VARCHAR2(250),
+    REFERENCE       VARCHAR2(250),
+    IDDEVISE        VARCHAR2(250) REFERENCES DEVISE(ID),
+    IDMAGASIN       VARCHAR2(250),
+    ETAT            NUMBER
+);
+
+CREATE SEQUENCE seqProformaFournisseur;
+
+CREATE OR REPLACE FUNCTION getSeqProformaFournisseur 
+RETURN NUMBER 
+IS 
+    retour NUMBER;
+BEGIN
+    SELECT seqProformaFournisseur.NEXTVAL
+    INTO retour
+    FROM DUAL;
+    
+    RETURN retour;
+END;
+
+CREATE TABLE PROFORMAFOURNISSEURDETAILS
+(
+    ID              VARCHAR2(250) NOT NULL PRIMARY KEY,
+    PRODUIT         VARCHAR2(250) REFERENCES AS_INGREDIENTS(ID),
+    IDMERE          VARCHAR2(250),
+    QUANTITE        NUMBER(30,2),
+    PU              NUMBER(30,2),
+    MONTANT         NUMBER(30,2),
+    TVA             NUMBER(30,2),
+    UNITE           VARCHAR2(250) REFERENCES AS_UNITE(ID),
+    REMISE          NUMBER(30,2),
+    IDDEVISE        VARCHAR2(250),
+    TAUXDECHANGE    NUMBER(30,2),
+    ETAT            NUMBER
+);
+
+CREATE SEQUENCE seqProformaFournisseurDetails;
+
+CREATE OR REPLACE FUNCTION getSeqProFNRDetails 
+RETURN NUMBER 
+IS 
+    retour NUMBER;
+BEGIN
+    SELECT seqProformaFournisseurDetails.NEXTVAL
+    INTO retour
+    FROM DUAL;
+    
+    RETURN retour;
+END;

@@ -1,0 +1,34 @@
+-- Stefan
+
+ALTER TABLE prevision
+    ADD (
+    mois  NUMBER(38, 0),
+    annee NUMBER(38, 0)
+);
+
+
+CREATE TABLE SERVICE
+(	ID VARCHAR2(100),
+     LIBELLE VARCHAR2(255),
+     CODE VARCHAR2(255),
+     COMPTE VARCHAR2(255),
+     CONSTRAINT "SERVICE_PK" PRIMARY KEY ("ID")
+);
+
+CREATE SEQUENCE seqservice
+    START WITH 1
+    INCREMENT BY 1
+    MAXVALUE 999999999999
+    NOCYCLE
+CACHE 20;
+
+
+CREATE OR REPLACE FUNCTION getseqservice
+ RETURN NUMBER
+IS
+  retour NUMBER;
+BEGIN
+SELECT seqservice.NEXTVAL into retour from dual;
+RETURN retour;
+END;
+

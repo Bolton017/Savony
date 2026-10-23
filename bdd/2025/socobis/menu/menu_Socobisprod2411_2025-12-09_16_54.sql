@@ -1,0 +1,16 @@
+UPDATE menudynamique SET icone = 'account_balance', href = '' WHERE id = 'MNDN274';
+UPDATE menudynamique SET icone = 'settings', href = '' WHERE id = 'MNDN00000002111';
+UPDATE menudynamique SET icone = 'inventory_2' WHERE id = 'MENDYN1765272431570133';
+UPDATE menudynamique SET icone = 'inventory_2' WHERE id = 'MNDN0000012';
+UPDATE menudynamique SET icone = 'inventory_2' WHERE id = 'MNDN0000012';
+UPDATE menudynamique SET icone = 'inventory_2', href = '' WHERE id = 'MNDN00000002111113';
+UPDATE menudynamique SET icone = 'inventory_2', href = '' WHERE id = 'MNDN00000002111112';
+UPDATE menudynamique SET icone = 'inventory_2' WHERE id = 'MNDN0000408001';
+UPDATE menudynamique SET icone = 'inventory_2' WHERE id = 'MNDN0002008001';
+UPDATE menudynamique SET icone = 'point_of_sale', href = '' WHERE id = 'MNDN0000508007';
+UPDATE menudynamique SET icone = 'point_of_sale' WHERE id = 'MNDN0000508009';
+UPDATE menudynamique SET icone = 'euro' WHERE id = 'MENUDYN0013';
+UPDATE menudynamique SET icone = 'euro' WHERE id = 'MNDN00002';
+UPDATE menudynamique SET icone = 'euro' WHERE id = 'MNDN000022';
+UPDATE menudynamique SET icone = 'store' WHERE id = 'MDT021030017';
+UPDATE menudynamique SET icone = 'store' WHERE id = 'MNDN0000000202';

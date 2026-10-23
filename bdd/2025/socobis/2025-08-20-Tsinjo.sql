@@ -1,0 +1,9 @@
+CREATE OR REPLACE FUNCTION getSeqMachine
+   RETURN NUMBER
+IS
+   retour   NUMBER;
+BEGIN
+   SELECT seqMachine.NEXTVAL INTO retour FROM DUAL;
+
+   RETURN retour;
+END;

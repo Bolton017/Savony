@@ -1,0 +1,41 @@
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<%@ page import="affichage.PageRecherche"%>
+<%@ page import="calculBesoin.ResultatCalculBesoins" %>
+
+<% try{ 
+    ResultatCalculBesoins o = new ResultatCalculBesoins();
+    o.setNomTable("RESULTATCALCULBESOINSCPL");
+    String[] listeCrt = {};
+    String[] listeInt = {};
+    String[] libEntete = {"libelle","unite","montant","montantStock", "montantAchete"};
+    PageRecherche pr = new PageRecherche(o, request, listeCrt, listeInt, 4, libEntete, libEntete.length);
+    pr.setUtilisateur((user.UserEJB) session.getValue("u"));
+    pr.setLien((String) session.getValue("lien"));
+
+    String id = request.getParameter("id");
+    if(id != null) {
+        pr.setAWhere(" AND IDMERE = '" + id + "' ");
+    }
+    String[] colSomme = null;
+    pr.creerObjetPage(libEntete, colSomme);
+
+    String[] libEnteteAffiche = {"Ingr&eacute;dient","Unit&eacute;","Montant","Montant en stock","Montant &agrave; achet&eacute;"};
+    pr.getTableau().setLibelleAffiche(libEnteteAffiche);
+%>
+
+<div class="box-body">
+    <%  if(pr.getTableau().getHtml() != null){
+            out.println(pr.getTableau().getHtml());
+        } else{ %>
+            <center><h4>Aucune donn&eacute;e trouv&eacute;e</h4></center>
+    <%  } %>
+</div>
+
+<% } catch (Exception e) {
+  e.printStackTrace();
+%>
+<script language="JavaScript"> alert('<%=e.getMessage()%>');
+    history.back();
+</script>
+<% }%>
+

@@ -1,0 +1,22 @@
+Tu dois générer des requêtes SQL pour {bdd} en respectant ces règles strictes :
+    Ta reponse doit être de cette forme (format JSON) et pas d'autre réponse, et une seule reponse
+        {
+            type: liste ou analyse,
+            nomTable: Nom de la table correcte,
+            date1: dd/MM/yyyy,
+            date2: dd/MM/yyyy,
+            requeteSql: Requête SQL correcte
+            grouper : idproduitlib ou idpointlib
+            id : l'id specifique qu'on recherche, separe par & si il y a plusieurs par exemple:id=ETU002630&semestre=S1&promotion=p16GrpA
+        }
+    - si on parle de consultations, fait une select * parce que toutes les colonnes sont importantes
+    - type: Classifie mes requêtes SQL en fonction de leur objectif : 'liste' si la requête extrait des données générales comme des totaux, des montants ou des transactions et n'implique aucun produit en particulier, et 'analyse' si elle implique une fabrication ou plusieurs fabrications, un produit ou point de vente specifique, si elle identifie des specificites par produits ou points de ventes comme depense ou CA par produit / points de vente, tendances, des éléments les plus fréquents, les plus rentables, ou toute autre donnée nécessitant une comparaison ou une interprétation,'aucun' si aucun n'applique
+    - si le type correspond a 'liste' ou 'analyse' utilise les tables pour creer la requeteSql: {tables}
+    - nomTable correspond a la table que la requete devrait etre execute, si tu a besoin de faire une jointure, met un des tables et la reponse doit etre au format de cette table et utilise JOIN
+    - date1 et date2 sont les intervalle si il y a une intervalle de date sinon met la date d'aujourd'hui dans la requete. Une semaine commence par Lundi et se termine par Dimanche. N'utilises pas SYSDATE dans la requete
+    - requeteSql: la requete SQL correspondant a la requete sans ajouter de nouvelles colonnes ou alias qui n'existent pas déjà, les colonnes calculés doivent avoir comme alias des colonne existantes. La requête doit uniquement utiliser les noms de colonnes existants et n'utilise pas FETCH FIRST ROWS ni LIMIT.
+    - grouper : si le type est analyse. Il faut déterminer si c'est a propos de produits ou points de vente qu'on veut analyser.
+    - id : si on recherche par un ID specifique. utilise toujours like ''%id%''.
+      bien verifier les erreurs dans la requete sql (ne pas utiliser FETCH FIRST ROWS, dans la requete sql et utiliser les colonnes existantes pour les ALIAS)
+    - les ORDER BY doivent etre par colonne pas par fonction, si t'as fais sum(nb) as nb et tu veux faire group by sum(nb) tu fais group by nb
+    Ma requete: {prompt}
